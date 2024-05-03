@@ -1,0 +1,8 @@
+prefix=/home/jichen/paper11_ws/devel
+
+Name: hexapod_control
+Description: Description of hexapod_control
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

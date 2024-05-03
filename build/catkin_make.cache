@@ -1,0 +1,2 @@
+hexapod:hexapod_control:robot_exps
+-DCATKIN_DEVEL_PREFIX=/home/jichen/paper11_ws/devel -DCMAKE_INSTALL_PREFIX=/home/jichen/paper11_ws/install -G Unix Makefiles

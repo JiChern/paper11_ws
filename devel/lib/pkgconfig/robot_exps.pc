@@ -1,0 +1,8 @@
+prefix=/home/jichen/paper11_ws/devel
+
+Name: robot_exps
+Description: Description of robot_exps
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

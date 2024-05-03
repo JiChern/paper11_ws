@@ -1,0 +1,6 @@
+{
+    "python.analysis.extraPaths": [
+        "/home/jichen/.local/lib/python3.8/site-packages",
+        "./src/hexapod/scripts"
+    ]
+}
