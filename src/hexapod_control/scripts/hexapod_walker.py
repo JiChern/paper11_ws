@@ -71,7 +71,7 @@ class HexWalker(object):
         self.gait_sub = rospy.Subscriber('/gait', Float32MultiArray, self.gait_cb)
         self.phase = [0,0,0,0,0,0]
 
-        self.mu = 0.7   # 0.7 metach; 0.2 cater
+        self.mu = 0.9   # 0.7 metach; 0.2 cater
 
  
     
@@ -208,7 +208,7 @@ if __name__ == '__main__':
     walker = HexWalker()
 
     data_folder = '/home/jichen/paper11_ws/src/hexapod_control/scripts/motor_data'
-    ds = DataSaver(data_folder,1)
+    ds = DataSaver(data_folder,2)
     
 
 
