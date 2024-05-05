@@ -228,12 +228,14 @@ if __name__ == '__main__':
         jc = walker.leg_pose_from_phase(walker.phase,dt)
         walker.hexapod.exec_joint_command(jc)
 
-        data = [duration, jc['j_c1_lf'],jc['j_c1_lm'],jc['j_c1_rr'],
-                          jc['j_c1_rf'],jc['j_c1_rm'],jc['j_thigh_lr'],
-                          jc['j_thigh_lf'],jc['j_thigh_lm'],jc['j_thigh_lr'],
-                          jc['j_thigh_rr'],jc['j_thigh_rm'],jc['j_thigh_rf'],
-                          jc['j_tibia_lf'],jc['j_tibia_lm'],jc['j_tibia_lr'],
-                          jc['j_tibia_rr'],jc['j_tibia_rm'],jc['j_tibia_rf']]
+        # data = [duration, jc['j_c1_lf'],jc['j_c1_lm'],jc['j_c1_rr'],
+        #                   jc['j_c1_rf'],jc['j_c1_rm'],jc['j_thigh_lr'],
+        #                   jc['j_thigh_lf'],jc['j_thigh_lm'],jc['j_thigh_lr'],
+        #                   jc['j_thigh_rr'],jc['j_thigh_rm'],jc['j_thigh_rf'],
+        #                   jc['j_tibia_lf'],jc['j_tibia_lm'],jc['j_tibia_lr'],
+        #                   jc['j_tibia_rr'],jc['j_tibia_rm'],jc['j_tibia_rf']]
+    
+        data = [duration, jc['j_c1_lf']]
 
         ds.dump_data(data)
 

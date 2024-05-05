@@ -7,6 +7,7 @@ class DataSaver(object):
 
     def dump_data(self, data):
         self.f_c1_rf.write(' '.join(str(i) for i in data))
+        self.f_c1_rf.write('\n')
 
 
 
