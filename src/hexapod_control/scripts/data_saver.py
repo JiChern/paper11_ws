@@ -7,7 +7,7 @@ class DataSaver(object):
 
         spline_names = ['time', 'c1_lf', 'c1_lm', 'c1_lr', 'c1_rf', 'c1_rm', 'c1_rr',
                         'thigh_lf', 'thigh_lm', 'thigh_lr', 'thigh_rf', 'thigh_rm', 'thigh_rr',
-                        'tibia_lf', 'tibia_lm', 'tibia_lr', 'tibia_rf', 'thigh_rm', 'thigh_rr']
+                        'tibia_lf', 'tibia_lm', 'tibia_lr', 'tibia_rf', 'tibia_rm', 'tibia_rr']
     
         self.f_c1_rf.write(' '.join(str(i) for i in spline_names))
         self.f_c1_rf.write('\n') 
