@@ -16,8 +16,8 @@ class DataSaver(object):
 
         print(spline_names)
     
-        # self.f_c1_rf.write(' '.join(str(i) for i in spline_names))
-        # self.f_c1_rf.write('\n') 
+        self.f_c1_rf.write(' '.join(str(i) for i in spline_names))
+        self.f_c1_rf.write('\n') 
 
         # self.f_c1_rf
 
