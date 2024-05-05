@@ -17,6 +17,7 @@ from std_msgs.msg import Float32MultiArray
 
 from gait_generator import GaitGenerator
 from bezier import Bezier
+from data_saver import DataSaver
 
 
 PI = 3.14159265
@@ -148,7 +149,9 @@ class HexWalker(object):
             self.joint_command[leg['joint_names'][1]] = jnt_angle[1]
             self.joint_command[leg['joint_names'][2]] = jnt_angle[2]
 
-        self.hexapod.exec_joint_command(self.joint_command)
+        return self.joint_command
+
+        
 
     def IKSolve(self, leg, target, dt):
         start_time = time.time()
@@ -204,8 +207,8 @@ if __name__ == '__main__':
 
     walker = HexWalker()
 
-
-    
+    data_folder = '/home/jichen/paper11_ws/src/hexapod_control/scripts/motor_data'
+    ds = DataSaver(data_folder)
     
 
 
@@ -222,15 +225,23 @@ if __name__ == '__main__':
         loop_start_time = time.time()
         duration = time.time()-start_time
 
-        print('dt1=', time.time()-loop_start_time)
+        jc = walker.leg_pose_from_phase(walker.phase,dt)
+        walker.hexapod.exec_joint_command(jc)
 
-        walker.leg_pose_from_phase(walker.phase,dt)
- 
+        data = [duration, jc['j_c1_lf'],jc['j_c1_lm'],jc['j_c1_rr'],
+                          jc['j_c1_rf'],jc['j_c1_rm'],jc['j_thigh_lr'],
+                          jc['j_thigh_lf'],jc['j_thigh_lm'],jc['j_thigh_lr'],
+                          jc['j_thigh_rr'],jc['j_thigh_rm'],jc['j_thigh_rf'],
+                          jc['j_tibia_lf'],jc['j_tibia_lm'],jc['j_tibia_lr'],
+                          jc['j_tibia_rr'],jc['j_tibia_rm'],jc['j_tibia_rf']]
+
+        ds.dump_data(data)
+
+
 
         # r.sleep()
-        dt = time.time()-loop_start_time
 
-        print('dt2=', dt)
+        print('duration', duration)
 
     # plt.figure()
 

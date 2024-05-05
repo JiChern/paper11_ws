@@ -4,6 +4,15 @@
   
 
   <!-- <xacro:arg name="arm_id_1" default="panda_1" /> -->
+
+  <link name="world"/>
+
+  <joint name="world_connect" type="fixed">
+    <parent link="world"/>
+    <child link="base_link"/>
+    <origin xyz="0 0 0.1" rpy="0 0 0" />
+  </joint>
+
   
   <link name="base_link"/>
 
