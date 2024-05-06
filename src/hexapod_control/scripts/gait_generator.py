@@ -340,7 +340,8 @@ class GaitGenerator(object):
 
 if __name__ == '__main__':
     rospy.init_node('test_sg')
-    sg = GaitGenerator(cell_num=6, alpha=10, beta=10, mu=1, omega=np.pi*2, gamma=1)
+    # sg = GaitGenerator(cell_num=6, alpha=10, beta=10, mu=1, omega=np.pi*2, gamma=1)
+    sg = GaitGenerator(cell_num=6, alpha=10, beta=10, mu=1, omega=np.pi*4, gamma=1)
 
     pi = math.pi
     tpi = math.pi*2
@@ -400,7 +401,7 @@ if __name__ == '__main__':
 
     beta = 0.995
 
-    sg.set_theta(tri)
+    sg.set_theta(metach)
 
     sg.start_oscillate_soft(1000)
 

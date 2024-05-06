@@ -71,7 +71,7 @@ class HexWalker(object):
         self.gait_sub = rospy.Subscriber('/gait', Float32MultiArray, self.gait_cb)
         self.phase = [0,0,0,0,0,0]
 
-        self.mu = 0.5   # 0.7 metach; 0.2 cater
+        self.mu = 0.4   # 0.7 metach; 0.2 cater
 
  
     
