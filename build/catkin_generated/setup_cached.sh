@@ -7,5 +7,6 @@
 # new environment variables
 
 # modified environment variables
-export LD_LIBRARY_PATH='/home/jichen/paper11_ws/devel/lib:/opt/ros/noetic/lib:/opt/ros/noetic/lib/x86_64-linux-gnu:/home/jichen/.mujoco/mujoco210/bin:/usr/lib/nvidia:/usr/local/cuda-11.4/lib64'
+export LD_LIBRARY_PATH='/opt/ros/noetic/lib:/opt/ros/noetic/lib/x86_64-linux-gnu:/home/jichen/.mujoco/mujoco210/bin:/usr/lib/nvidia:/usr/local/cuda-11.4/lib64'
+export PKG_CONFIG_PATH='/opt/ros/noetic/lib/pkgconfig:/opt/ros/noetic/lib/x86_64-linux-gnu/pkgconfig'
 export PWD='/home/jichen/paper11_ws/build'
