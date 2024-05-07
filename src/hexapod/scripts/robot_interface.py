@@ -9,13 +9,13 @@ class RobotInterface:
         name_base_link = 'MP_BODY'
 
 
-        name_end_effector1 = 'tibia_e_lf'     
-        name_end_effector2 = 'tibia_e_lm'
-        name_end_effector3 = 'tibia_e_lr'
+        name_end_effector1 = 'tibia_e_rf'     
+        name_end_effector2 = 'tibia_e_rm'
+        name_end_effector3 = 'tibia_e_rr'
 
-        name_end_effector4 = 'tibia_e_rf'
-        name_end_effector5 = 'tibia_e_rm'
-        name_end_effector6 = 'tibia_e_rr'
+        name_end_effector4 = 'tibia_e_lf'
+        name_end_effector5 = 'tibia_e_lm'
+        name_end_effector6 = 'tibia_e_lr'
 
 
         #numerical definition
@@ -35,22 +35,22 @@ class RobotInterface:
         self.leg6_interface = KDLInterface(model_file,n_dof,name_base_link,name_end_effector6, joint_pos_min, joint_pos_max, gravity)
 
         # Group0
-        self.leg1_joint_names = ['j_c1_lf','j_thigh_lf', 'j_tibia_lf']
-        self.leg2_joint_names = ['j_c1_lm','j_thigh_lm', 'j_tibia_lm'] 
-        self.leg3_joint_names = ['j_c1_lr','j_thigh_lr', 'j_tibia_lr']
+        self.leg1_joint_names = ['j_c1_rf','j_thigh_rf', 'j_tibia_rf']
+        self.leg2_joint_names = ['j_c1_rm','j_thigh_rm', 'j_tibia_rm'] 
+        self.leg3_joint_names = ['j_c1_rr','j_thigh_rr', 'j_tibia_rr']
 
-        self.leg4_joint_names = ['j_c1_rf','j_thigh_rf', 'j_tibia_rf']
-        self.leg5_joint_names = ['j_c1_rm','j_thigh_rm', 'j_tibia_rm']
-        self.leg6_joint_names = ['j_c1_rr','j_thigh_rr', 'j_tibia_rr']
+        self.leg4_joint_names = ['j_c1_lf','j_thigh_lf', 'j_tibia_lf']
+        self.leg5_joint_names = ['j_c1_lm','j_thigh_lm', 'j_tibia_lm']
+        self.leg6_joint_names = ['j_c1_lr','j_thigh_lr', 'j_tibia_lr']
 
 
-        self.leg1 = {'id':str(1), 'interface':self.leg1_interface, 'joint_names':self.leg1_joint_names, 'rest_pos':[-0.10,  0.155, -0.059]}
-        self.leg3 = {'id':str(3), 'interface':self.leg3_interface, 'joint_names':self.leg3_joint_names, 'rest_pos':[-0.10 , -0.155, -0.059]}
-        self.leg5 = {'id':str(5), 'interface':self.leg5_interface, 'joint_names':self.leg5_joint_names, 'rest_pos':[ 0.163,  0.0, -0.059]}
+        self.leg1 = {'id':str(1), 'interface':self.leg1_interface, 'joint_names':self.leg1_joint_names, 'rest_pos':[0.10,  0.155, -0.059]}
+        self.leg2 = {'id':str(2), 'interface':self.leg2_interface, 'joint_names':self.leg2_joint_names, 'rest_pos':[0.163,  0.0, -0.059]}
+        self.leg3 = {'id':str(3), 'interface':self.leg3_interface, 'joint_names':self.leg3_joint_names, 'rest_pos':[0.10 , -0.155, -0.059]}
 
-        self.leg2 = {'id':str(2), 'interface':self.leg2_interface, 'joint_names':self.leg2_joint_names, 'rest_pos':[-0.163,  0.0, -0.059]}
-        self.leg4 = {'id':str(4), 'interface':self.leg4_interface, 'joint_names':self.leg4_joint_names, 'rest_pos':[ 0.10,  0.155, -0.059]}
-        self.leg6 = {'id':str(6), 'interface':self.leg6_interface, 'joint_names':self.leg6_joint_names, 'rest_pos':[ 0.10, -0.155, -0.059]}
+        self.leg4 = {'id':str(4), 'interface':self.leg4_interface, 'joint_names':self.leg4_joint_names, 'rest_pos':[ -0.10,  0.155, -0.059]}
+        self.leg5 = {'id':str(5), 'interface':self.leg5_interface, 'joint_names':self.leg5_joint_names, 'rest_pos':[ -0.163,  0.0, -0.059]}
+        self.leg6 = {'id':str(6), 'interface':self.leg6_interface, 'joint_names':self.leg6_joint_names, 'rest_pos':[ -0.10, -0.155, -0.059]}
 
         
 

@@ -4,11 +4,12 @@ import rospy
 import time
 from geometry_msgs.msg import Twist
 from sensor_msgs.msg import JointState
-from std_msgs.msg import Float32MultiArray
+from std_msgs.msg import Float32MultiArray, Float64
 import numpy as np
 import numpy.linalg
 import util
 from robot_interface import RobotInterface
+
 
 import math
 
@@ -40,15 +41,16 @@ class Hexapod:
         self.pub_g3 = rospy.Publisher("/group3/joint_commands", Float32MultiArray, queue_size=10)
 
         # rospy.loginfo('Creating joint command publishers')
-        # self._pub_joints = {}
-        # for j in self.joints:
-        #     p = rospy.Publisher(j + '_position_controller/command', Float64, queue_size=1)
-        #     self._pub_joints[j] = p
-        # #self._pub_joints = rospy.Publisher(ns + 'hexapod_joint_controllers/command', Float64MultiArray, queue_size=10)
-        # print('aaaaaaaaaaaaaaaaa')
-        # rospy.sleep(1)
+        ns = '/hexapod/'
+        self._pub_joints = {}
+        for j in self.joints:
+            p = rospy.Publisher(ns + j + '_position_controller/command', Float64, queue_size=1)
+            self._pub_joints[j] = p
 
-        # self._pub_cmd_vel = rospy.Publisher(ns + 'cmd_vel', Twist, queue_size=1)
+        print('aaaaaaaaaaaaaaaaa')
+        rospy.sleep(1)
+
+        self._pub_cmd_vel = rospy.Publisher(ns + 'cmd_vel', Twist, queue_size=1)
 
     def fk(self, interface, joint_names):
         angles = self.get_angles()
@@ -65,27 +67,32 @@ class Hexapod:
         return joint_angles, trans, quaternions, jacobian
 
     def exec_joint_command(self, joint_command):
-        jc_g1_msg, jc_g2_msg, jc_g3_msg = Float32MultiArray(),Float32MultiArray(),Float32MultiArray()
-        jc_g1_names = list(np.concatenate([self.robot_interface.leg4["joint_names"],self.robot_interface.leg1["joint_names"]]))
-        jc_g2_names = list(np.concatenate([self.robot_interface.leg5["joint_names"],self.robot_interface.leg2["joint_names"]]))
-        jc_g3_names = list(np.concatenate([self.robot_interface.leg6["joint_names"],self.robot_interface.leg3["joint_names"]]))
+
+        for j in self.joints:
+            print('j:', j)
+
+
+        # jc_g1_msg, jc_g2_msg, jc_g3_msg = Float32MultiArray(),Float32MultiArray(),Float32MultiArray()
+        # jc_g1_names = list(np.concatenate([self.robot_interface.leg4["joint_names"],self.robot_interface.leg1["joint_names"]]))
+        # jc_g2_names = list(np.concatenate([self.robot_interface.leg5["joint_names"],self.robot_interface.leg2["joint_names"]]))
+        # jc_g3_names = list(np.concatenate([self.robot_interface.leg6["joint_names"],self.robot_interface.leg3["joint_names"]]))
         
-        jc_g1, jc_g2, jc_g3 = np.zeros(6), np.zeros(6), np.zeros(6)
+        # jc_g1, jc_g2, jc_g3 = np.zeros(6), np.zeros(6), np.zeros(6)
 
-        for index, name in enumerate(jc_g1_names):
-            jc_g1[index] = joint_command[name]
+        # for index, name in enumerate(jc_g1_names):
+        #     jc_g1[index] = joint_command[name]
 
-        for index, name in enumerate(jc_g2_names):
-            jc_g2[index] = joint_command[name]
+        # for index, name in enumerate(jc_g2_names):
+        #     jc_g2[index] = joint_command[name]
 
-        for index, name in enumerate(jc_g3_names):
-            jc_g3[index] = joint_command[name]    
+        # for index, name in enumerate(jc_g3_names):
+        #     jc_g3[index] = joint_command[name]    
 
-        jc_g1_msg.data, jc_g2_msg.data, jc_g3_msg.data = jc_g1, jc_g2, jc_g3
+        # jc_g1_msg.data, jc_g2_msg.data, jc_g3_msg.data = jc_g1, jc_g2, jc_g3
 
-        self.pub_g1.publish(jc_g1_msg)
-        self.pub_g2.publish(jc_g2_msg)
-        self.pub_g3.publish(jc_g3_msg)
+        # self.pub_g1.publish(jc_g1_msg)
+        # self.pub_g2.publish(jc_g2_msg)
+        # self.pub_g3.publish(jc_g3_msg)
 
 # 0.25, -1.089
 

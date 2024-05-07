@@ -1,7 +1,7 @@
 
 <launch>
 
-  <rosparam file="$(find hexapod_control)/config/hexapod_control.yaml" command="load"/>
+  <rosparam file="$(find hexapod_control)/config/hexapod_control3.yaml" command="load"/>
   <!-- <rosparam file="$(find hexapod_control)/config/arm_control.yaml" command="load"/> -->
 
 

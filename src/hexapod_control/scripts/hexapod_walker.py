@@ -19,6 +19,9 @@ from gait_generator import GaitGenerator
 from bezier import Bezier
 from data_saver import DataSaver
 
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d.axes3d import Axes3D
+
 
 PI = 3.14159265
 TURN_TOL = 0.005
@@ -27,7 +30,7 @@ SPEED_SLOPE = 0.4
 MAX_SPEED = 1.5
 TURN_SLEW = 0.8
 # IKSOLVER 
-MAXITER = 100
+MAXITER = 500
 TOLERANCE = 0.001
 SS_TIME = 2
 
@@ -71,7 +74,11 @@ class HexWalker(object):
         self.gait_sub = rospy.Subscriber('/gait', Float32MultiArray, self.gait_cb)
         self.phase = [0,0,0,0,0,0]
 
-        self.mu = 0.4   # 0.7 metach; 0.2 cater
+        self.mu = 0.5   # 0.7 metach; 0.2 cater
+
+        self.leg_traj_x = {'1':[],'3':[],'5':[],'2':[],'4':[],'6':[]}
+        self.leg_traj_y = {'1':[],'3':[],'5':[],'2':[],'4':[],'6':[]}
+        self.leg_traj_z = {'1':[],'3':[],'5':[],'2':[],'4':[],'6':[]}
 
  
     
@@ -80,7 +87,7 @@ class HexWalker(object):
 
     def leg_pose_from_phase(self, phase, dt):
         start_time = time.time()
-        dt = 0.02
+
         turn_step = -(self.smoothturning - self.turning)
         if turn_step > TURN_SLEW*dt: turn_step = TURN_SLEW*dt
         if turn_step < -TURN_SLEW*dt: turn_step = -TURN_SLEW*dt
@@ -93,12 +100,13 @@ class HexWalker(object):
         elif abs(self.smoothturning) > TURN_TOL:
             turn_dist = math.tan((1.0-self.smoothturning)*PI/2.0)   #*50.
 
+        step_size = 0.02
+
         max_dist = 0.0
         for leg in self.interface.legs:
             dist = math.sqrt(pow(leg['rest_pos'][0]-turn_dist,2)+pow(leg['rest_pos'][1],2))
             if dist > max_dist: max_dist = dist
-        
-        step_size = 0.014
+                
 
         max_sweep = -step_size/max_dist
         if turn_dist<0.0: max_sweep = -max_sweep
@@ -141,9 +149,11 @@ class HexWalker(object):
             x_tar = turn_dist-dist*math.sin(tht_pos+tht0)
             y_tar = dist * math.cos(tht_pos+tht0)
             z_tar = -self.standheight + self.legraise*z_pos
-
                 
-            converged, jnt_angle = self.IKSolve(leg, np.array([x_tar,y_tar,z_tar]), dt)
+            # if index == 0:
+                
+            converged, jnt_angle = self.IKSolve(leg, np.array([x_tar,y_tar,z_tar]))
+
 
             self.joint_command[leg['joint_names'][0]] = jnt_angle[0] 
             self.joint_command[leg['joint_names'][1]] = jnt_angle[1]
@@ -151,21 +161,20 @@ class HexWalker(object):
 
         return self.joint_command
 
+
+
+    def IKSolve(self, leg, target):
         
 
-    def IKSolve(self, leg, target, dt):
-        start_time = time.time()
+        self.leg_traj_x[leg['id']].append(target[0])
+        self.leg_traj_y[leg['id']].append(target[1])
+        self.leg_traj_z[leg['id']].append(target[2])
+
         converged = False
         diff = 100
         iter = 0
         joint_angles, trans, _,jacobian = self.hexapod.fk(leg['interface'],leg['joint_names'])
 
-
-        error = (target-trans).reshape(3,1)
-        jacobian = jacobian[0:3,:]
-        cart_vel = error
-        pseudo = np.linalg.pinv(jacobian)
-        q_dot = np.matmul(pseudo, cart_vel)
 
         while iter < MAXITER:
             
@@ -189,13 +198,10 @@ class HexWalker(object):
                 break
             iter += 1
 
+            
+
 
         # q_dot = np.clip(q_dot,-0.04,0.04)
-
-
-        joint_angles[0] = joint_angles[0] + q_dot[0]*dt
-        joint_angles[1] = joint_angles[1] + q_dot[1]*dt
-        joint_angles[2] = joint_angles[2] + q_dot[2]*dt
 
 
         return converged, joint_angles
@@ -220,12 +226,21 @@ if __name__ == '__main__':
 
     start_time = time.time()
 
+    z_vec1 = []
+    y_vec1 = []
+    x_vec1 = []
+    z_vec2 = []
+    y_vec2 = []
+    x_vec2 = []
+    
 
     while not rospy.is_shutdown():
         loop_start_time = time.time()
         duration = time.time()-start_time
 
         jc = walker.leg_pose_from_phase(walker.phase,dt)
+
+        print('a')
         walker.hexapod.exec_joint_command(jc)
 
         data = [duration, jc['j_c1_lf'],jc['j_c1_lm'],jc['j_c1_lr'],
@@ -235,33 +250,35 @@ if __name__ == '__main__':
                           jc['j_tibia_lf'],jc['j_tibia_lm'],jc['j_tibia_lr'],
                           jc['j_tibia_rf'],jc['j_tibia_rm'],jc['j_tibia_rr']]
         
+        joint_angles, trans1, _,jacobian = walker.hexapod.fk(walker.interface.leg1['interface'],walker.interface.leg1['joint_names'])
+        joint_angles, trans2, _,jacobian = walker.hexapod.fk(walker.interface.leg2['interface'],walker.interface.leg2['joint_names'])
 
-        # data = [duration, jc['j_c1_lf']]
+        x_vec1.append(trans1[0])
+        y_vec1.append(trans1[1])
+        z_vec1.append(trans1[2])
+
+        x_vec2.append(trans2[0])
+        y_vec2.append(trans2[1])
+        z_vec2.append(trans2[2])
 
         ds.dump_data(data)
 
 
-
-        # r.sleep()
-
-        print('duration', duration)
-
-    # plt.figure()
-
-    # plt.subplot(6,1,1)
-    # plt.plot(duration_vec,z_vec0)
-    # plt.subplot(6,1,2)
-    # plt.plot(duration_vec,z_vec1)
-    # plt.subplot(6,1,3)
-    # plt.plot(duration_vec,z_vec2)
-    # plt.subplot(6,1,4)
-    # plt.plot(duration_vec,z_vec3)
-    # plt.subplot(6,1,5)
-    # plt.plot(duration_vec,z_vec4)
-    # plt.subplot(6,1,6)
-    # plt.plot(duration_vec,z_vec5)
-
-    # plt.show()
+        r.sleep()
 
 
+    fig = plt.figure()
+    ax = Axes3D(fig)
+
+    ax.plot3D(walker.leg_traj_x['1'], walker.leg_traj_y['1'],walker.leg_traj_z['1'])
+    ax.plot3D(walker.leg_traj_x['2'], walker.leg_traj_y['2'],walker.leg_traj_z['2'])
+    ax.plot3D(walker.leg_traj_x['3'], walker.leg_traj_y['3'],walker.leg_traj_z['3'])
+
+    ax.plot3D(x_vec1, y_vec1,z_vec1)
+    ax.plot3D(x_vec2, y_vec2,z_vec2)
+
+
+
+
+    plt.show()
     
