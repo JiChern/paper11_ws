@@ -173,7 +173,7 @@
     <child link="c1_rf"/>
     <origin rpy="0 3.141592653589793 0" xyz="0 0 0"/>
     <axis xyz="0 0 -1"/>
-    <limit effort="5.8" lower="-2.6179939" upper="2.6179939" velocity="5.6548668"/>
+    <limit effort="5.8" lower="-2.6179939" upper="2.6179939" velocity="10"/>
     <dynamics damping="0.5" friction="0.0"/>
   </joint>
   <joint name="j_thigh_rf" type="revolute">
@@ -181,7 +181,7 @@
     <child link="thigh_rf"/>
     <origin rpy="1.5707963267948966 0 1.5707963267948966" xyz="0 0.053 0"/>
     <axis xyz="0 0 1"/>
-    <limit effort="5.8" lower="-2.6179939" upper="2.6179939" velocity="5.6548668"/>
+    <limit effort="5.8" lower="-2.6179939" upper="2.6179939" velocity="10"/>
     <dynamics damping="0.5" friction="0.0"/>
   </joint>
   <joint name="j_tibia_rf" type="revolute">
@@ -190,7 +190,7 @@
     <!-- <origin xyz="0 ${thigh_offset_y} ${thigh_offset_z}" rpy="-1.5707 0 3.14159" /> -->
     <origin rpy="3.141592653589793 0 3.141592653589793" xyz="0.0525 0 0"/>
     <axis xyz="0 0 -1"/>
-    <limit effort="5.8" lower="-1.0" upper="1.0" velocity="5.6548668"/>
+    <limit effort="5.8" lower="-2.5" upper="2.5" velocity="10"/>
     <dynamics damping="0.5" friction="0.0"/>
   </joint>
   <joint name="j_tibia_e_rf" type="fixed">
@@ -398,7 +398,7 @@
     <child link="c1_rm"/>
     <origin rpy="0 3.141592653589793 0" xyz="0 0 0"/>
     <axis xyz="0 0 -1"/>
-    <limit effort="5.8" lower="-2.6179939" upper="2.6179939" velocity="5.6548668"/>
+    <limit effort="5.8" lower="-2.6179939" upper="2.6179939" velocity="10"/>
     <dynamics damping="0.5" friction="0.0"/>
   </joint>
   <joint name="j_thigh_rm" type="revolute">
@@ -406,7 +406,7 @@
     <child link="thigh_rm"/>
     <origin rpy="1.5707963267948966 0 1.5707963267948966" xyz="0 0.053 0"/>
     <axis xyz="0 0 1"/>
-    <limit effort="5.8" lower="-2.6179939" upper="2.6179939" velocity="5.6548668"/>
+    <limit effort="5.8" lower="-2.6179939" upper="2.6179939" velocity="10"/>
     <dynamics damping="0.5" friction="0.0"/>
   </joint>
   <joint name="j_tibia_rm" type="revolute">
@@ -415,7 +415,7 @@
     <!-- <origin xyz="0 ${thigh_offset_y} ${thigh_offset_z}" rpy="-1.5707 0 3.14159" /> -->
     <origin rpy="3.141592653589793 0 3.141592653589793" xyz="0.0525 0 0"/>
     <axis xyz="0 0 -1"/>
-    <limit effort="5.8" lower="-1.0" upper="1.0" velocity="5.6548668"/>
+    <limit effort="5.8" lower="-2.5" upper="2.5" velocity="10"/>
     <dynamics damping="0.5" friction="0.0"/>
   </joint>
   <joint name="j_tibia_e_rm" type="fixed">
@@ -623,7 +623,7 @@
     <child link="c1_rr"/>
     <origin rpy="0 3.141592653589793 0" xyz="0 0 0"/>
     <axis xyz="0 0 -1"/>
-    <limit effort="5.8" lower="-2.6179939" upper="2.6179939" velocity="5.6548668"/>
+    <limit effort="5.8" lower="-2.6179939" upper="2.6179939" velocity="10"/>
     <dynamics damping="0.5" friction="0.0"/>
   </joint>
   <joint name="j_thigh_rr" type="revolute">
@@ -631,7 +631,7 @@
     <child link="thigh_rr"/>
     <origin rpy="1.5707963267948966 0 1.5707963267948966" xyz="0 0.053 0"/>
     <axis xyz="0 0 1"/>
-    <limit effort="5.8" lower="-2.6179939" upper="2.6179939" velocity="5.6548668"/>
+    <limit effort="5.8" lower="-2.6179939" upper="2.6179939" velocity="10"/>
     <dynamics damping="0.5" friction="0.0"/>
   </joint>
   <joint name="j_tibia_rr" type="revolute">
@@ -640,7 +640,7 @@
     <!-- <origin xyz="0 ${thigh_offset_y} ${thigh_offset_z}" rpy="-1.5707 0 3.14159" /> -->
     <origin rpy="3.141592653589793 0 3.141592653589793" xyz="0.0525 0 0"/>
     <axis xyz="0 0 -1"/>
-    <limit effort="5.8" lower="-1.0" upper="1.0" velocity="5.6548668"/>
+    <limit effort="5.8" lower="-2.5" upper="2.5" velocity="10"/>
     <dynamics damping="0.5" friction="0.0"/>
   </joint>
   <joint name="j_tibia_e_rr" type="fixed">
@@ -848,7 +848,7 @@
     <child link="c1_lf"/>
     <origin rpy="0 3.141592653589793 3.141592653589793" xyz="0 0 0"/>
     <axis xyz="0 0 -1"/>
-    <limit effort="5.8" lower="-2.6179939" upper="2.6179939" velocity="5.6548668"/>
+    <limit effort="5.8" lower="-2.6179939" upper="2.6179939" velocity="10"/>
     <dynamics damping="0.5" friction="0.0"/>
   </joint>
   <joint name="j_thigh_lf" type="revolute">
@@ -856,7 +856,7 @@
     <child link="thigh_lf"/>
     <origin rpy="1.5707963267948966 0 1.5707963267948966" xyz="0 0.053 0"/>
     <axis xyz="0 0 1"/>
-    <limit effort="5.8" lower="-2.6179939" upper="2.6179939" velocity="5.6548668"/>
+    <limit effort="5.8" lower="-2.6179939" upper="2.6179939" velocity="10"/>
     <dynamics damping="0.5" friction="0.0"/>
   </joint>
   <joint name="j_tibia_lf" type="revolute">
@@ -865,7 +865,7 @@
     <!-- <origin xyz="0 ${thigh_offset_y} ${thigh_offset_z}" rpy="-1.5707 0 3.14159" /> -->
     <origin rpy="3.141592653589793 0 3.141592653589793" xyz="0.0525 0 0"/>
     <axis xyz="0 0 -1"/>
-    <limit effort="5.8" lower="-1.0" upper="1.0" velocity="5.6548668"/>
+    <limit effort="5.8" lower="-2.5" upper="2.5" velocity="10"/>
     <dynamics damping="0.5" friction="0.0"/>
   </joint>
   <joint name="j_tibia_e_lf" type="fixed">
@@ -1073,7 +1073,7 @@
     <child link="c1_lm"/>
     <origin rpy="0 3.141592653589793 3.141592653589793" xyz="0 0 0"/>
     <axis xyz="0 0 -1"/>
-    <limit effort="5.8" lower="-2.6179939" upper="2.6179939" velocity="5.6548668"/>
+    <limit effort="5.8" lower="-2.6179939" upper="2.6179939" velocity="10"/>
     <dynamics damping="0.5" friction="0.0"/>
   </joint>
   <joint name="j_thigh_lm" type="revolute">
@@ -1081,7 +1081,7 @@
     <child link="thigh_lm"/>
     <origin rpy="1.5707963267948966 0 1.5707963267948966" xyz="0 0.053 0"/>
     <axis xyz="0 0 1"/>
-    <limit effort="5.8" lower="-2.6179939" upper="2.6179939" velocity="5.6548668"/>
+    <limit effort="5.8" lower="-2.6179939" upper="2.6179939" velocity="10"/>
     <dynamics damping="0.5" friction="0.0"/>
   </joint>
   <joint name="j_tibia_lm" type="revolute">
@@ -1090,7 +1090,7 @@
     <!-- <origin xyz="0 ${thigh_offset_y} ${thigh_offset_z}" rpy="-1.5707 0 3.14159" /> -->
     <origin rpy="3.141592653589793 0 3.141592653589793" xyz="0.0525 0 0"/>
     <axis xyz="0 0 -1"/>
-    <limit effort="5.8" lower="-1.0" upper="1.0" velocity="5.6548668"/>
+    <limit effort="5.8" lower="-2.5" upper="2.5" velocity="10"/>
     <dynamics damping="0.5" friction="0.0"/>
   </joint>
   <joint name="j_tibia_e_lm" type="fixed">
@@ -1298,7 +1298,7 @@
     <child link="c1_lr"/>
     <origin rpy="0 3.141592653589793 3.141592653589793" xyz="0 0 0"/>
     <axis xyz="0 0 -1"/>
-    <limit effort="5.8" lower="-2.6179939" upper="2.6179939" velocity="5.6548668"/>
+    <limit effort="5.8" lower="-2.6179939" upper="2.6179939" velocity="10"/>
     <dynamics damping="0.5" friction="0.0"/>
   </joint>
   <joint name="j_thigh_lr" type="revolute">
@@ -1306,7 +1306,7 @@
     <child link="thigh_lr"/>
     <origin rpy="1.5707963267948966 0 1.5707963267948966" xyz="0 0.053 0"/>
     <axis xyz="0 0 1"/>
-    <limit effort="5.8" lower="-2.6179939" upper="2.6179939" velocity="5.6548668"/>
+    <limit effort="5.8" lower="-2.6179939" upper="2.6179939" velocity="10"/>
     <dynamics damping="0.5" friction="0.0"/>
   </joint>
   <joint name="j_tibia_lr" type="revolute">
@@ -1315,7 +1315,7 @@
     <!-- <origin xyz="0 ${thigh_offset_y} ${thigh_offset_z}" rpy="-1.5707 0 3.14159" /> -->
     <origin rpy="3.141592653589793 0 3.141592653589793" xyz="0.0525 0 0"/>
     <axis xyz="0 0 -1"/>
-    <limit effort="5.8" lower="-1.0" upper="1.0" velocity="5.6548668"/>
+    <limit effort="5.8" lower="-2.5" upper="2.5" velocity="10"/>
     <dynamics damping="0.5" friction="0.0"/>
   </joint>
   <joint name="j_tibia_e_lr" type="fixed">

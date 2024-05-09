@@ -36,14 +36,20 @@ class Bezier(object):
 
 if __name__ == "__main__":
     bezier = Bezier()
-    bezier.addPoint(-0.83775,0)
-    bezier.addPoint(-1.11701,0)
-    bezier.addPoint(-1.39626,0)
+    bezier.addPoint(-1,0)
+    bezier.addPoint(-1.7,0.1)
+    # bezier.addPoint(-1.39626,0)
     bezier.addPoint(0,3.2)
-    bezier.addPoint(1.39626,0)
-    bezier.addPoint(1.11701,0)
-    bezier.addPoint(0.83775,0)
+    # bezier.addPoint(1.39626,0)
+    bezier.addPoint(1.7,0.1)
+    bezier.addPoint(1,0)
+
     print(bezier.x_pos)
+
+    bezier2 = Bezier()
+    bezier2.addPoint(1,0)
+    bezier2.addPoint(-1,0)
+
     t = 0
     x_list = []
     y_list = []
@@ -51,16 +57,31 @@ if __name__ == "__main__":
     #     walker.step(0.005)
         t += 0.01
         x,y = bezier.getPos(t)
-        print(bezier.x_pos)
+        # print(bezier.x_pos)
         x_list.append(x)
         y_list.append(y)
 
+    t = 0
+    x_list2 = []
+    y_list2 = []
 
-    print(x_list)
+    for i in range(1000):
+    #     walker.step(0.005)
+        t += 0.001
+        x,y = bezier2.getPos(t)
+        # print(bezier2.x_pos)
+        x_list2.append(x)
+        y_list2.append(y)
 
-    phase = get_phase_list(start=0,stop=0.5,length=len(x_list))
-    print(phase)
-    print(len(phase))
+    print(x_list2)
+
+    plt.figure()
+    plt.plot(x_list2,y_list2)
+    # plt.plot(x_list,y_list)
+    plt.show()
+    # phase = get_phase_list(start=0,stop=0.5,length=len(x_list))
+    # print(phase)
+    # print(len(phase))
 
 
     # fig = plt.figure()

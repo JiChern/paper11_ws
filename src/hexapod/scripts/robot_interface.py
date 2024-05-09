@@ -26,12 +26,11 @@ class RobotInterface:
 
         # Group0
         self.leg1_interface = KDLInterface(model_file,n_dof,name_base_link,name_end_effector1, joint_pos_min, joint_pos_max, gravity)
-        self.leg3_interface = KDLInterface(model_file,n_dof,name_base_link,name_end_effector3, joint_pos_min, joint_pos_max, gravity)
-        self.leg5_interface = KDLInterface(model_file,n_dof,name_base_link,name_end_effector5, joint_pos_min, joint_pos_max, gravity)
-
-        # Group1
         self.leg2_interface = KDLInterface(model_file,n_dof,name_base_link,name_end_effector2, joint_pos_min, joint_pos_max, gravity)
+        self.leg3_interface = KDLInterface(model_file,n_dof,name_base_link,name_end_effector3, joint_pos_min, joint_pos_max, gravity)
+
         self.leg4_interface = KDLInterface(model_file,n_dof,name_base_link,name_end_effector4, joint_pos_min, joint_pos_max, gravity)
+        self.leg5_interface = KDLInterface(model_file,n_dof,name_base_link,name_end_effector5, joint_pos_min, joint_pos_max, gravity)
         self.leg6_interface = KDLInterface(model_file,n_dof,name_base_link,name_end_effector6, joint_pos_min, joint_pos_max, gravity)
 
         # Group0

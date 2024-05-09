@@ -267,7 +267,7 @@
     <child link="c1_${suffix}"/>
     <origin xyz="0 0 0" rpy="${r1p1y1}" />
     <axis xyz="0 0 -1" />
-    <limit effort="5.8" velocity="5.6548668" lower="-2.6179939" upper="2.6179939" />
+    <limit effort="5.8" velocity="10" lower="-2.6179939" upper="2.6179939" />
     <dynamics damping="0.5" friction="0.0" />
   </joint>
 
@@ -277,7 +277,7 @@
     <child link="thigh_${suffix}"/>
     <origin xyz="0 0.053 0" rpy="${M_PI/2} 0 ${M_PI/2}" />
     <axis xyz="0 0 1" />
-    <limit effort="5.8" velocity="5.6548668" lower="-2.6179939" upper="2.6179939" />
+    <limit effort="5.8" velocity="10" lower="-2.6179939" upper="2.6179939" />
     <dynamics damping="0.5" friction="0.0" />
   </joint>
 
@@ -288,7 +288,7 @@
 
     <origin rpy="3.141592653589793 0 3.141592653589793" xyz="0.0525 0 0"/>
     <axis xyz="0 0 -1" />
-    <limit effort="5.8" velocity="5.6548668" lower="-1.0" upper="1.0" />
+    <limit effort="5.8" velocity="10" lower="-2.5" upper="2.5" />
     <dynamics damping="0.5" friction="0.0" />
   </joint>
 
