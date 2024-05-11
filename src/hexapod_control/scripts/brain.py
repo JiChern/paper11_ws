@@ -60,9 +60,6 @@ class HexBrain(object):
         if progress < self.ts:
             t = progress/self.ts
             _,percent = self.bezier.getPos(t)
-            print('theta_percent: ', percent)
-            print('start_theta: ', start_theta)
-            print('target_theta: ', target_theta)
 
             smooth_theta = start_theta + (target_theta - start_theta)*percent
         else:
@@ -124,12 +121,11 @@ class HexBrain(object):
 if __name__ == '__main__':
     print(TETRA)
 
-
     rospy.init_node('test_gait_transition')
 
     brain = HexBrain()
     data_folder = '/home/jichen/paper11_ws/src/hexapod_control/scripts/motor_data'
-    ds = DataSaver(data_folder,3)
+    ds = DataSaver(data_folder,1)
 
     hz = 200
     
