@@ -15,9 +15,14 @@ from hexapod_walker import HexWalker
 import csv
 from bezier import Bezier
 from data_saver import DataSaver
+from gazebo_msgs.msg import ModelStates
+
+import csv
+
 
 pi = math.pi
 tpi = math.pi*2
+
 
 """ 6 cells """
 CATER = tpi/3*np.ones(6)
@@ -38,6 +43,7 @@ class HexBrain(object):
         self.beta = 0.995
         self.theta_pub = rospy.Publisher('/theta_command', Float32MultiArray, queue_size=10)
         self.theta_sub = rospy.Subscriber('/current_theta', Float32MultiArray, self.theta_cb, queue_size=10)
+        self.ms_sub = rospy.Subscriber('/gazebo/model_states', ModelStates, self.model_cb, queue_size=10)
         self.theta = np.zeros(6)
         self.kai = 1
         self.ts = 10
@@ -53,8 +59,25 @@ class HexBrain(object):
         self.in_trans = False
         self.trans_finish = False
 
+        """
+        CSV files
+        """
+        f0 = open("/home/jichen/paper11_ws/src/hexapod_control/scripts/data/pos.csv", 'w')
+        self.pos_writer = csv.writer(f0)
+
+        f =  open("/home/jichen/paper11_ws/src/hexapod_control/scripts/data/vel.csv", 'w')
+        self.vel_writer = csv.writer(f)
+        
+        f1 = open("/home/jichen/paper11_ws/src/hexapod_control/scripts/data/mu.csv", 'w')
+        self.mu_writer = csv.writer(f1)
+
+
     def theta_cb(self, data):
         self.theta = np.array(data.data)
+
+    def model_cb(self, data):
+        self.model_position = [data.pose[1].position.x, data.pose[1].position.y, data.pose[1].position.z]
+        self.model_vel = [data.twist[1].linear.x, data.twist[1].linear.y, data.twist[1].linear.z]
 
     def smooth_theta(self, start_theta, target_theta, progress):
         if progress < self.ts:
@@ -173,8 +196,12 @@ if __name__ == '__main__':
 
         print('duration: ',duration)
 
-        duration_vec.append(duration)
-        mu_vec.append(brain.walker.mu)
+        # duration_vec.append(duration)
+        # mu_vec.append(brain.walker.mu)
+
+        brain.mu_writer.writerow([duration, brain.walker.mu])
+        brain.pos_writer.writerow([duration]+brain.model_position)
+        brain.vel_writer.writerow([duration]+brain.model_vel)
 
         # r.sleep()
         dt = time.time()-loop_start_time
