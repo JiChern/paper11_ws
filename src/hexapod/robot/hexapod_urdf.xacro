@@ -60,13 +60,13 @@
         <material>Gazebo/Grey</material>
       </gazebo>
 
-    <xacro:leg_l xyz="0.038 0.046 0.02"  rpy="0 ${M_PI} ${-M_PI/2}" r1p1y1="0 ${M_PI} 0" suffix="rf"/>
+    <xacro:leg_l xyz="0.038 0.046 0.02"  rpy="0 ${M_PI} ${-M_PI/2}" r1p1y1="0 ${M_PI} ${-M_PI/3}" suffix="rf"/>
     <xacro:leg_l xyz="0.038 0.0  0.02"  rpy="0 ${M_PI} ${-M_PI/2}" r1p1y1="0 ${M_PI} 0" suffix="rm"/>
-    <xacro:leg_l xyz="0.038 -0.046  0.02"  rpy="0 ${M_PI} ${-M_PI/2}" r1p1y1="0 ${M_PI} 0" suffix="rr"/>
+    <xacro:leg_l xyz="0.038 -0.046  0.02"  rpy="0 ${M_PI} ${-M_PI/2}" r1p1y1="0 ${M_PI} ${M_PI/3}" suffix="rr"/>
 
-    <xacro:leg_l xyz="-0.038 0.046  0.02"  rpy="0 ${-M_PI} ${3*M_PI/2}" r1p1y1="0 ${M_PI} ${M_PI}" suffix="lf"/>
+    <xacro:leg_l xyz="-0.038 0.046  0.02"  rpy="0 ${-M_PI} ${3*M_PI/2}" r1p1y1="0 ${M_PI} ${M_PI + M_PI/3}" suffix="lf"/>
     <xacro:leg_l xyz="-0.038 0.0  0.02"  rpy="0 ${-M_PI} ${3*M_PI/2}" r1p1y1="0 ${M_PI} ${M_PI}" suffix="lm"/>
-    <xacro:leg_l xyz="-0.038 -0.046  0.02"  rpy="0 ${-M_PI} ${3*M_PI/2}" r1p1y1="0 ${M_PI} ${M_PI}" suffix="lr"/> 
+    <xacro:leg_l xyz="-0.038 -0.046  0.02"  rpy="0 ${-M_PI} ${3*M_PI/2}" r1p1y1="0 ${M_PI} ${M_PI - M_PI/3}" suffix="lr"/> 
 
 
 </xacro:macro>
@@ -275,7 +275,7 @@
   <joint name="j_thigh_${suffix}" type="revolute">
     <parent link="c1_${suffix}"/>
     <child link="thigh_${suffix}"/>
-    <origin xyz="0 0.053 0" rpy="${M_PI/2} 0 ${M_PI/2}" />
+    <origin xyz="0 0.053 0" rpy="${M_PI/2} ${-M_PI/12} ${M_PI/2}" />
     <axis xyz="0 0 1" />
     <limit effort="5.8" velocity="10" lower="-2.6179939" upper="2.6179939" />
     <dynamics damping="0.5" friction="0.0" />
@@ -286,7 +286,7 @@
     <child link="tibia_${suffix}"/>
     <!-- <origin xyz="0 ${thigh_offset_y} ${thigh_offset_z}" rpy="-1.5707 0 3.14159" /> -->
 
-    <origin rpy="3.141592653589793 0 3.141592653589793" xyz="0.0525 0 0"/>
+    <origin rpy="3.141592653589793 0 ${2*M_PI/3}" xyz="0.0525 0 0"/>
     <axis xyz="0 0 -1" />
     <limit effort="5.8" velocity="10" lower="-2.5" upper="2.5" />
     <dynamics damping="0.5" friction="0.0" />

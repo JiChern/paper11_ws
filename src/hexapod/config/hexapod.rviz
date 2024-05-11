@@ -90,31 +90,31 @@ Visualization Manager:
         connect_rr:
           Value: false
         thigh_lf:
-          Value: true
+          Value: false
         thigh_lm:
           Value: false
         thigh_lr:
           Value: false
         thigh_rf:
-          Value: true
+          Value: false
         thigh_rm:
           Value: false
         thigh_rr:
           Value: false
         tibia_e_lf:
-          Value: true
+          Value: false
         tibia_e_lm:
-          Value: true
+          Value: false
         tibia_e_lr:
-          Value: true
+          Value: false
         tibia_e_rf:
-          Value: true
+          Value: false
         tibia_e_rm:
-          Value: true
+          Value: false
         tibia_e_rr:
-          Value: true
+          Value: false
         tibia_lf:
-          Value: true
+          Value: false
         tibia_lm:
           Value: false
         tibia_lr:
@@ -340,7 +340,7 @@ Visualization Manager:
       TF Prefix: ""
       Update Interval: 0
       Value: true
-      Visual Enabled: false
+      Visual Enabled: true
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
@@ -369,7 +369,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 0.49167725443840027
+      Distance: 0.5047801733016968
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -377,17 +377,17 @@ Visualization Manager:
         Value: false
       Field of View: 0.7853981852531433
       Focal Point:
-        X: 0.05490672215819359
-        Y: 0.1294684112071991
-        Z: 0.06757345795631409
+        X: 0.06488331407308578
+        Y: 0.07660477608442307
+        Z: 0.025689220055937767
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: -0.04020289331674576
+      Pitch: 0.10979709029197693
       Target Frame: <Fixed Frame>
-      Yaw: 1.3803703784942627
+      Yaw: 6.023556232452393
     Saved: ~
 Window Geometry:
   Displays:

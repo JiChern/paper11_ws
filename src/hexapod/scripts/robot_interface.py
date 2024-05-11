@@ -43,15 +43,13 @@ class RobotInterface:
         self.leg6_joint_names = ['j_c1_lr','j_thigh_lr', 'j_tibia_lr']
 
 
-        self.leg1 = {'id':str(1), 'interface':self.leg1_interface, 'joint_names':self.leg1_joint_names, 'rest_pos':[0.10,  0.155, -0.059]}
-        self.leg2 = {'id':str(2), 'interface':self.leg2_interface, 'joint_names':self.leg2_joint_names, 'rest_pos':[0.163,  0.0, -0.059]}
-        self.leg3 = {'id':str(3), 'interface':self.leg3_interface, 'joint_names':self.leg3_joint_names, 'rest_pos':[0.10 , -0.155, -0.059]}
+        self.leg1 = {'id':str(1), 'interface':self.leg1_interface, 'joint_names':self.leg1_joint_names, 'rest_pos':[0.10167,  0.15628, -0.061269]}
+        self.leg2 = {'id':str(2), 'interface':self.leg2_interface, 'joint_names':self.leg2_joint_names, 'rest_pos':[0.16354,  0.0, -0.061269]}
+        self.leg3 = {'id':str(3), 'interface':self.leg3_interface, 'joint_names':self.leg3_joint_names, 'rest_pos':[0.10167 , -0.15628, -0.061269]}
 
-        self.leg4 = {'id':str(4), 'interface':self.leg4_interface, 'joint_names':self.leg4_joint_names, 'rest_pos':[ -0.10,  0.155, -0.059]}
-        self.leg5 = {'id':str(5), 'interface':self.leg5_interface, 'joint_names':self.leg5_joint_names, 'rest_pos':[ -0.163,  0.0, -0.059]}
-        self.leg6 = {'id':str(6), 'interface':self.leg6_interface, 'joint_names':self.leg6_joint_names, 'rest_pos':[ -0.10, -0.155, -0.059]}
-
-        
+        self.leg4 = {'id':str(4), 'interface':self.leg4_interface, 'joint_names':self.leg4_joint_names, 'rest_pos':[ -0.10167,  0.15628, -0.061269]}
+        self.leg5 = {'id':str(5), 'interface':self.leg5_interface, 'joint_names':self.leg5_joint_names, 'rest_pos':[ -0.16354,  0.0, -0.061269]}
+        self.leg6 = {'id':str(6), 'interface':self.leg6_interface, 'joint_names':self.leg6_joint_names, 'rest_pos':[ -0.10167, -0.15628, -0.061269]}
 
         # self.legs = [self.leg1,self.leg3,self.leg5,self.leg2,self.leg4,self.leg6]
         self.legs = [self.leg1,self.leg2,self.leg3,self.leg4,self.leg5,self.leg6]
