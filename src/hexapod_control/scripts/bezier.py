@@ -35,63 +35,69 @@ class Bezier(object):
 
 
 if __name__ == "__main__":
-    bezier = Bezier()
-    bezier.addPoint(-1,0)
-    bezier.addPoint(-1.7,0.1)
-    # bezier.addPoint(-1.39626,0)
-    bezier.addPoint(0,3.2)
-    # bezier.addPoint(1.39626,0)
-    bezier.addPoint(1.7,0.1)
-    bezier.addPoint(1,0)
+    # bezier = Bezier()
+    # bezier.addPoint(-1,0)
+    # bezier.addPoint(-1.7,0.1)
+    # # bezier.addPoint(-1.39626,0)
+    # bezier.addPoint(0,3.2)
+    # # bezier.addPoint(1.39626,0)
+    # bezier.addPoint(1.7,0.1)
+    # bezier.addPoint(1,0)
 
-    print(bezier.x_pos)
+    # print(bezier.x_pos)
 
-    bezier2 = Bezier()
-    bezier2.addPoint(1,0)
-    bezier2.addPoint(-1,0)
+    # bezier2 = Bezier()
+    # bezier2.addPoint(1,0)
+    # bezier2.addPoint(-1,0)
 
+    bezier3 = Bezier()
+    bezier3.addPoint(0,0)
+    bezier3.addPoint(0.5,0)
+    bezier3.addPoint(0.5,1)
+    bezier3.addPoint(1,1)
+    
+    # t = 0
+    # x_list = []
+    # y_list = []
+    # for i in range(100):
+    # #     walker.step(0.005)
+    #     t += 0.01
+    #     x,y = bezier.getPos(t)
+    #     # print(bezier.x_pos)
+    #     x_list.append(x)
+    #     y_list.append(y)
+
+    # t = 0
+    # x_list2 = []
+    # y_list2 = []
+
+    # for i in range(1000):
+    # #     walker.step(0.005)
+    #     t += 0.001
+    #     x,y = bezier2.getPos(t)
+    #     # print(bezier2.x_pos)
+    #     x_list2.append(x)
+    #     y_list2.append(y)
+
+    # print(x_list2)
+
+    x_list3 = []
+    y_list3 = []
     t = 0
-    x_list = []
-    y_list = []
-    for i in range(100):
-    #     walker.step(0.005)
-        t += 0.01
-        x,y = bezier.getPos(t)
-        # print(bezier.x_pos)
-        x_list.append(x)
-        y_list.append(y)
 
-    t = 0
-    x_list2 = []
-    y_list2 = []
-
-    for i in range(1000):
+    for i in range(1500):
     #     walker.step(0.005)
         t += 0.001
-        x,y = bezier2.getPos(t)
+        x,y = bezier3.getPos(t)
         # print(bezier2.x_pos)
-        x_list2.append(x)
-        y_list2.append(y)
+        x_list3.append(x)
+        y_list3.append(y)
 
-    print(x_list2)
+    print(x_list3)
+
 
     plt.figure()
-    plt.plot(x_list2,y_list2)
+    plt.plot(x_list3,y_list3)
     # plt.plot(x_list,y_list)
     plt.show()
-    # phase = get_phase_list(start=0,stop=0.5,length=len(x_list))
-    # print(phase)
-    # print(len(phase))
-
-
-    # fig = plt.figure()
-    # def update(i):
-    #     plt.clf()
-    #     plt.ylim((-1,1))
-    #     plt.xlim((-1,1))
-    #     plt.plot(x_list,y_list)
-    #     plt.plot(x_list[i],y_list[i],'o')
-
-    # ani = animation.FuncAnimation(fig,update,frames=100,interval=1)
-    # plt.show()
 

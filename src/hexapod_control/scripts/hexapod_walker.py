@@ -32,7 +32,7 @@ MAX_SPEED = 1.5
 TURN_SLEW = 0.8
 # IKSOLVER 
 MAXITER = 10
-TOLERANCE = 0.0001
+TOLERANCE = 0.00005
 SS_TIME = 2
 
 
@@ -68,12 +68,11 @@ class HexWalker(object):
         self.interface = RobotInterface()
 
         self.joint_command = {'j_c1_lf':0, 'j_c1_lm':0.0, 'j_c1_lr':0, 
-                         'j_c1_rf':0, 'j_c1_rm':0.0, 'j_c1_rr':0,
-                         'j_thigh_lf':0, 'j_thigh_lm':0, 'j_thigh_lr':0,
-                         'j_thigh_rr':0, 'j_thigh_rm':0, 'j_thigh_rf':0,
-                         'j_tibia_lf':0, 'j_tibia_lm':0, 'j_tibia_lr':0,
-                         'j_tibia_rr':0, 'j_tibia_rm':0, 'j_tibia_rf':0}
-
+                            'j_c1_rf':0, 'j_c1_rm':0.0, 'j_c1_rr':0,
+                            'j_thigh_lf':0, 'j_thigh_lm':0, 'j_thigh_lr':0,
+                            'j_thigh_rr':0, 'j_thigh_rm':0, 'j_thigh_rf':0,
+                            'j_tibia_lf':0, 'j_tibia_lm':0, 'j_tibia_lr':0,
+                            'j_tibia_rr':0, 'j_tibia_rm':0, 'j_tibia_rf':0}
 
         self.turning = 0
         self.smoothturning = 0
@@ -247,8 +246,6 @@ if __name__ == '__main__':
     data_folder = '/home/jichen/paper11_ws/src/hexapod_control/scripts/motor_data'
     ds = DataSaver(data_folder,1)
     
-
-
     hz = 100
     
     r = rospy.Rate(hz)
@@ -344,7 +341,7 @@ if __name__ == '__main__':
 
     # ax.plot3D(x_vec1, y_vec1,z_vec1)
 
-    plt.plot(walker.trans_y['1'],walker.trans_z['1'])
+    plt.plot(walker.trans_y['2'],walker.trans_z['2'])
  
     # plt.plot(walker.leg_traj_y['2'],walker.leg_traj_z['2'])
     # plt.plot(y_vec1[500:-1],z_vec1[500:-1])
