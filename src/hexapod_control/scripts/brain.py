@@ -136,7 +136,7 @@ if __name__ == '__main__':
 
     brain = HexBrain()
     data_folder = '/home/jichen/paper11_ws/src/hexapod_control/scripts/motor_data'
-    ds = DataSaver(data_folder,2)
+    ds = DataSaver(data_folder,1)
 
     hz = 200
     
