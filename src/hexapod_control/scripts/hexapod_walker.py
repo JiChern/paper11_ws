@@ -56,10 +56,18 @@ class HexWalker(object):
         # self.b2d_walk_down.addPoint(0.83775,0)
         # self.b2d_walk_down.addPoint(-0.83775,0)
 
+        # self.b2d_walk_up.addPoint(-1,0)
+        # self.b2d_walk_up.addPoint(-1.7,0.1)
+        # self.b2d_walk_up.addPoint(0,3.2)
+        # self.b2d_walk_up.addPoint(1.7,0.1)
+        # self.b2d_walk_up.addPoint(1,0)
+
         self.b2d_walk_up.addPoint(-1,0)
-        self.b2d_walk_up.addPoint(-1.7,0.1)
+        self.b2d_walk_up.addPoint(-1,1.6)
+        # bezier.addPoint(-1.39626,0)
         self.b2d_walk_up.addPoint(0,3.2)
-        self.b2d_walk_up.addPoint(1.7,0.1)
+        # bezier.addPoint(1.39626,0)
+        self.b2d_walk_up.addPoint(1,1.6)
         self.b2d_walk_up.addPoint(1,0)
 
         self.b2d_walk_down.addPoint(1,0)

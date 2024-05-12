@@ -35,20 +35,20 @@ class Bezier(object):
 
 
 if __name__ == "__main__":
-    # bezier = Bezier()
-    # bezier.addPoint(-1,0)
-    # bezier.addPoint(-1.7,0.1)
-    # # bezier.addPoint(-1.39626,0)
-    # bezier.addPoint(0,3.2)
-    # # bezier.addPoint(1.39626,0)
-    # bezier.addPoint(1.7,0.1)
-    # bezier.addPoint(1,0)
+    bezier = Bezier()
+    bezier.addPoint(-1,0)
+    bezier.addPoint(-1,1.6)
+    # bezier.addPoint(-1.39626,0)
+    bezier.addPoint(0,3.2)
+    # bezier.addPoint(1.39626,0)
+    bezier.addPoint(1,1.6)
+    bezier.addPoint(1,0)
 
-    # print(bezier.x_pos)
+    print(bezier.x_pos)
 
-    # bezier2 = Bezier()
-    # bezier2.addPoint(1,0)
-    # bezier2.addPoint(-1,0)
+    bezier2 = Bezier()
+    bezier2.addPoint(1,0)
+    bezier2.addPoint(-1,0)
 
     bezier3 = Bezier()
     bezier3.addPoint(0,0)
@@ -56,16 +56,16 @@ if __name__ == "__main__":
     bezier3.addPoint(0.5,1)
     bezier3.addPoint(1,1)
     
-    # t = 0
-    # x_list = []
-    # y_list = []
-    # for i in range(100):
-    # #     walker.step(0.005)
-    #     t += 0.01
-    #     x,y = bezier.getPos(t)
-    #     # print(bezier.x_pos)
-    #     x_list.append(x)
-    #     y_list.append(y)
+    t = 0
+    x_list = []
+    y_list = []
+    for i in range(100):
+    #     walker.step(0.005)
+        t += 0.01
+        x,y = bezier.getPos(t)
+        # print(bezier.x_pos)
+        x_list.append(x)
+        y_list.append(y)
 
     # t = 0
     # x_list2 = []
@@ -97,7 +97,7 @@ if __name__ == "__main__":
 
 
     plt.figure()
-    plt.plot(x_list3,y_list3)
+    plt.plot(x_list,y_list)
     # plt.plot(x_list,y_list)
     plt.show()
 
