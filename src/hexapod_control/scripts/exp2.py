@@ -37,7 +37,7 @@ if __name__ == '__main__':
 
     brain = HexBrain()
     data_folder = '/home/jichen/paper11_ws/src/hexapod_control/scripts/motor_data'
-    ds = DataSaver(data_folder,1)
+    ds = DataSaver(data_folder,3)
 
     hz = 200
     
@@ -67,7 +67,7 @@ if __name__ == '__main__':
     mu_vec = []
 
 
-    brain.walker.mu = gait_dict['metach']['mu']
+    brain.walker.mu = gait_dict['cater']['mu']
 
     while not rospy.is_shutdown():
         loop_start_time = time.time()
@@ -86,15 +86,15 @@ if __name__ == '__main__':
 
         ds.dump_data(data)
 
-        if 10<duration<20.5:
-            trans_start_time = 10
-            progress = duration-trans_start_time
-            smooth_theta = brain.gait_transition('metach', 'tri', progress)
+        # if 10<duration<20.5:
+        #     trans_start_time = 10
+        #     progress = duration-trans_start_time
+        #     smooth_theta = brain.gait_transition('metach', 'tri', progress)
 
-        if 30<duration<40.5:
-            trans_start_time = 30
-            progress = duration-trans_start_time
-            smooth_theta = brain.gait_transition('tri', 'cater', progress)
+        # if 30<duration<40.5:
+        #     trans_start_time = 30
+        #     progress = duration-trans_start_time
+        #     smooth_theta = brain.gait_transition('tri', 'cater', progress)
 
         print('duration: ',duration)
 
