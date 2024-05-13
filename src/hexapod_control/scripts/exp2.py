@@ -67,7 +67,7 @@ if __name__ == '__main__':
     mu_vec = []
 
 
-    brain.walker.mu = gait_dict['cater']['mu']
+    brain.walker.mu = gait_dict['metach']['mu']
     print(gait_dict['cater']['mu'])
     print(brain.walker.mu)
 
@@ -88,17 +88,18 @@ if __name__ == '__main__':
 
         ds.dump_data(data)
 
-        # if 10<duration<20.5:
-        #     trans_start_time = 10
-        #     progress = duration-trans_start_time
-        #     smooth_theta = brain.gait_transition('metach', 'tri', progress)
+        if 10<duration<20.5:
+            trans_start_time = 10
+            progress = duration-trans_start_time
+            smooth_theta = brain.gait_transition('metach', 'tri', progress)
 
-        # if 30<duration<40.5:
-        #     trans_start_time = 30
-        #     progress = duration-trans_start_time
-        #     smooth_theta = brain.gait_transition('tri', 'cater', progress)
+        if 30<duration<50.5:
+            brain.ts = 20
+            trans_start_time = 30
+            progress = duration-trans_start_time
+            smooth_theta = brain.gait_transition('tri', 'cater', progress)
 
-        print('duration: ',duration)
+        print('duration: ',duration, ' mu: ', brain.walker.mu)
 
         # duration_vec.append(duration)
         # mu_vec.append(brain.walker.mu)
