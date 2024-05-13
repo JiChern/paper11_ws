@@ -91,13 +91,13 @@ if __name__ == '__main__':
         if 10<duration<20.5:
             trans_start_time = 10
             progress = duration-trans_start_time
-            smooth_theta = brain.gait_transition('metach', 'tri', progress)
+            smooth_theta = brain.gait_transition('metach', 'cater', progress)
 
-        if 30<duration<50.5:
-            brain.ts = 20
+        if 30<duration<40.5:
+            brain.ts = 10
             trans_start_time = 30
             progress = duration-trans_start_time
-            smooth_theta = brain.gait_transition('tri', 'cater', progress)
+            smooth_theta = brain.gait_transition('cater', 'tri', progress)
 
         print('duration: ',duration, ' mu: ', brain.walker.mu)
 
