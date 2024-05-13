@@ -23,7 +23,7 @@ WAVE = np.array([tpi/3,tpi/3, pi, tpi/3,tpi/3, pi/3])
 TETRA = np.array([tpi/3,tpi/3,0,tpi/3,tpi/3,2*tpi/3])
 
 gait_dict = {'tri':{'theta':TRI, 'mu':0.5},
-             'cater':{'theta':CATER, 'mu':0.4},   #
+             'cater':{'theta':CATER, 'mu':0.2},   #
              'metach':{'theta':METACH, 'mu':0.7},
              'wave':{'theta':WAVE, 'mu':0.83},
              'tetra':{'theta':TETRA, 'mu':0.66},
@@ -37,7 +37,7 @@ if __name__ == '__main__':
 
     brain = HexBrain()
     data_folder = '/home/jichen/paper11_ws/src/hexapod_control/scripts/motor_data'
-    ds = DataSaver(data_folder,4)
+    ds = DataSaver(data_folder,5)
 
     hz = 200
     
