@@ -86,8 +86,8 @@ class HexWalker(object):
         self.smoothturning = 0
         self.hexapod = Hexapod(self.interface)
         self.half_period = 1 
-        # self.legraise = 0.01
-        self.legraise = 0.005
+        self.legraise = 0.02
+        # self.legraise = 0.005
 
         self.standheight = -self.interface.leg1['rest_pos'][2]
 
