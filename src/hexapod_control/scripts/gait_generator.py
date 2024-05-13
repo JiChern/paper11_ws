@@ -340,8 +340,8 @@ class GaitGenerator(object):
 
 if __name__ == '__main__':
     rospy.init_node('test_sg')
-    # sg = GaitGenerator(cell_num=6, alpha=10, beta=10, mu=1, omega=np.pi*2, gamma=1)
-    sg = GaitGenerator(cell_num=6, alpha=10, beta=10, mu=1, omega=np.pi*4, gamma=1)
+    sg = GaitGenerator(cell_num=6, alpha=10, beta=10, mu=1, omega=np.pi*2, gamma=1)
+    # sg = GaitGenerator(cell_num=6, alpha=10, beta=10, mu=1, omega=np.pi*4, gamma=1)
 
     pi = math.pi
     tpi = math.pi*2

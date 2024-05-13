@@ -259,9 +259,6 @@
 
   <!-- here are an edit including a ball joint -->
 
-
-
-
   <joint name="j_c1_${suffix}" type="revolute">
     <parent link="connect_${suffix}"/>
     <child link="c1_${suffix}"/>
