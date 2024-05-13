@@ -9,6 +9,11 @@ from std_msgs.msg import Float32MultiArray
 from std_msgs.msg import Float64
 import numpy as np
 
+from gazebo_msgs.srv import DeleteModel, SpawnModel
+from geometry_msgs.msg import Pose
+from controller_manager_msgs.srv import LoadController, SwitchController
+
+
 
 sys.path.append('/home/jichen/paper11_ws/src/hexapod/scripts')
 from robot_interface import RobotInterface
@@ -52,6 +57,7 @@ class Hexapod:
             self._pub_joints[j] = p
         #self._pub_joints = rospy.Publisher(ns + 'hexapod_joint_controllers/command', Float64MultiArray, queue_size=10)
         rospy.sleep(1)
+
 
     def fk(self, interface, joint_names):
         angles = self.get_angles()
