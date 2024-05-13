@@ -36,7 +36,8 @@ gait_dict = {'tri':{'theta':TRI, 'mu':0.5},
              'cater':{'theta':CATER, 'mu':0.2},
              'metach':{'theta':METACH, 'mu':0.7},
              'wave':{'theta':WAVE, 'mu':0.83},
-             'tetra':{'theta':TETRA, 'mu':0.66}}
+             'tetra':{'theta':TETRA, 'mu':0.66},
+             'hsmetach':{'theta':METACH, 'mu':0.4}}
 
 class HexBrain(object):
     def __init__(self):
@@ -165,7 +166,8 @@ if __name__ == '__main__':
     duration_vec = []
     mu_vec = []
 
-    brain.walker.mu = gait_dict['wave']['mu']
+
+    brain.walker.mu = gait_dict['metach']['mu']
 
     while not rospy.is_shutdown():
         loop_start_time = time.time()
