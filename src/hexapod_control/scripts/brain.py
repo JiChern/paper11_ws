@@ -40,7 +40,7 @@ gait_dict = {'tri':{'theta':TRI, 'mu':0.5},
              'hsmetach':{'theta':METACH, 'mu':0.4}}
 
 class HexBrain(object):
-    def __init__(self, walker, sup_walker):
+    def __init__(self, walker):
         self.beta = 0.995
         self.theta_pub = rospy.Publisher('/theta_command', Float32MultiArray, queue_size=10)
         self.theta_sub = rospy.Subscriber('/current_theta', Float32MultiArray, self.theta_cb, queue_size=10)
@@ -56,7 +56,6 @@ class HexBrain(object):
         self.bezier.addPoint(1,1)
 
         self.walker = walker #HexWalker()
-        self.sup_walker = sup_walker
 
         self.in_trans = False
         self.trans_finish = False
