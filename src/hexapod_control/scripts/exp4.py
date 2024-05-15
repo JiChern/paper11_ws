@@ -47,37 +47,22 @@ if __name__ == '__main__':
     ds = DataSaver(data_folder,traj_index)
 
     
-
-
     slp_time = 1/hz
-
-    start_time = time.time()
-
     mu = 0.5
     mu_vec = []
-
     percentage = 0
-
-    # msg = rospy.wait_for_message('current_theta',Float32MultiArray)
-    # current_theta = np.array(msg.data)
-
-    # stable_gait = brain.stable_gait(current_theta)
-    # theta1 = gait_dict[stable_gait]['theta']
-    # mu1 = gait_dict[stable_gait]['mu']
-    # walker.mu = mu1
-
     progress = 0
-
     theta_vec = []
     duration_vec = []
     mu_vec = []
-
 
     brain.walker.mu = gait_dict['metach']['mu']
 
     print('Experimental Setting: ', 'start gait: metach', ' mu: ',gait_dict['metach']['mu'], ' traj index: ', traj_index)
 
     input("Press enter to execute the experiment")
+
+    start_time = time.time()
 
     while not rospy.is_shutdown():
         loop_start_time = time.time()
