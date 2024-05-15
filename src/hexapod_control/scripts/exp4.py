@@ -36,13 +36,12 @@ if __name__ == '__main__':
 
     hz = 100
 
+    traj_index = 1
+
     rospy.init_node('gtexp2')
     walker = TrajGenerator(omega_0=2*np.pi, Hz=hz)
     brain = HexBrain(walker)
     data_folder = '/home/jichen/paper11_ws/src/hexapod_control/scripts/motor_data'
-
-    traj_index = 1
-
     ds = DataSaver(data_folder,traj_index)
 
     
@@ -73,8 +72,10 @@ if __name__ == '__main__':
 
 
     brain.walker.mu = gait_dict['metach']['mu']
-    print(gait_dict['cater']['mu'])
-    print(brain.walker.mu)
+
+    print('Experimental Setting: ', 'start gait: metach', ' mu: ',gait_dict['metach']['mu'], ' traj index: ', traj_index)
+
+    input("Press enter to execute the experiment")
 
     while not rospy.is_shutdown():
         loop_start_time = time.time()
@@ -96,13 +97,8 @@ if __name__ == '__main__':
         if 10<duration<20.5:
             trans_start_time = 10
             progress = duration-trans_start_time
-            smooth_theta = brain.gait_transition('metach', 'cater', progress)
+            smooth_theta = brain.gait_transition('metach', 'tri', progress)
 
-        if 30<duration<40.5:
-            brain.ts = 10
-            trans_start_time = 30
-            progress = duration-trans_start_time
-            smooth_theta = brain.gait_transition('cater', 'tri', progress)
 
         print('duration: ',duration, ' mu: ', brain.walker.mu)
 

@@ -210,8 +210,6 @@ if __name__ == '__main__':
     hz = 100
 
     tg = TrajGenerator(omega_0=np.pi*2, Hz=hz)
-
-    
     
     r = rospy.Rate(hz)
 
@@ -228,8 +226,7 @@ if __name__ == '__main__':
         jc = tg.leg_pose_from_phase(tg.phase)
         
         a = 1
-        for i in range(100000):
-            a += i
+
         tg.hexapod.exec_joint_command(jc)
 
         time.sleep(slp_time-(time.time()%slp_time))
