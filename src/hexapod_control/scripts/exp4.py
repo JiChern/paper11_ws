@@ -8,6 +8,7 @@ import matplotlib.pyplot as plt
 
 from brain import HexBrain
 from traj_generator import TrajGenerator
+from hexapod_walker import HexWalker
 from data_saver import DataSaver
 
 
@@ -40,7 +41,8 @@ if __name__ == '__main__':
 
     rospy.init_node('gtexp2')
     walker = TrajGenerator(omega_0=2*np.pi, Hz=hz)
-    brain = HexBrain(walker)
+    sup_walker = HexWalker()
+    brain = HexBrain(walker, sup_walker)
     data_folder = '/home/jichen/paper11_ws/src/hexapod_control/scripts/motor_data'
     ds = DataSaver(data_folder,traj_index)
 
@@ -82,7 +84,11 @@ if __name__ == '__main__':
         duration = time.time()-start_time
 
 
-        jc = brain.walker.leg_pose_from_phase(brain.walker.phase)
+        if duration < 1:
+            jc = brain.sup_walker.leg_pose_from_phase(brain.walker.phase, 1/hz)
+
+        else:
+            jc = brain.walker.leg_pose_from_phase(brain.walker.phase)
         brain.walker.hexapod.exec_joint_command(jc)
 
         data = [duration, jc['j_c1_lf'],jc['j_c1_lm'],jc['j_c1_lr'],
