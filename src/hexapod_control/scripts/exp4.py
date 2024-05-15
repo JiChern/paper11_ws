@@ -37,7 +37,7 @@ if __name__ == '__main__':
 
     hz = 100
 
-    traj_index = 2
+    traj_index = 1
 
     rospy.init_node('gtexp2')
     walker = TrajGenerator(omega_0=2*np.pi, Hz=hz)
@@ -69,11 +69,11 @@ if __name__ == '__main__':
         duration = time.time()-start_time
 
 
-        if duration < 1:
-            jc = brain.sup_walker.leg_pose_from_phase(brain.walker.phase, 1/hz)
+        # if duration < 1:
+        jc = brain.sup_walker.leg_pose_from_phase(brain.walker.phase, 1/hz)
 
-        else:
-            jc = brain.walker.leg_pose_from_phase(brain.walker.phase)
+        # else:
+        #     jc = brain.walker.leg_pose_from_phase(brain.walker.phase)
         brain.walker.hexapod.exec_joint_command(jc)
 
         data = [duration, jc['j_c1_lf'],jc['j_c1_lm'],jc['j_c1_lr'],
