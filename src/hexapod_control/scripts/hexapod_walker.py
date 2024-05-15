@@ -325,7 +325,7 @@ if __name__ == '__main__':
 
         ds.dump_data(data)
 
-        print('duration: ', duration)
+        print('duration: ', duration, 'loop_time: ', time.time()-loop_start_time)
 
         # r.sleep()
 

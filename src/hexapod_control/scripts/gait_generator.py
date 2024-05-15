@@ -343,6 +343,7 @@ if __name__ == '__main__':
     sg = GaitGenerator(cell_num=6, alpha=10, beta=10, mu=1, omega=np.pi*2, gamma=1)
     # sg = GaitGenerator(cell_num=6, alpha=10, beta=10, mu=1, omega=np.pi*4, gamma=1)
 
+
     pi = math.pi
     tpi = math.pi*2
 
@@ -359,7 +360,7 @@ if __name__ == '__main__':
 
 
     
-    r = rospy.Rate(200)
+    r = rospy.Rate(1000)
 
     dt = 0.005
 
@@ -401,7 +402,7 @@ if __name__ == '__main__':
 
     beta = 0.995
 
-    sg.set_theta(tri)
+    sg.set_theta(metach)
 
     sg.start_oscillate_soft(1000)
 
@@ -429,12 +430,12 @@ if __name__ == '__main__':
         r.sleep()
         dt = time.time()-loop_start_time
 
-        phase_vec0.append(phase[0])
-        phase_vec1.append(phase[1])
-        phase_vec2.append(phase[2])
-        phase_vec3.append(phase[3])
-        phase_vec4.append(phase[4])
-        phase_vec5.append(phase[5])
+        # phase_vec0.append(phase[0])
+        # phase_vec1.append(phase[1])
+        # phase_vec2.append(phase[2])
+        # phase_vec3.append(phase[3])
+        # phase_vec4.append(phase[4])
+        # phase_vec5.append(phase[5])
 
     with open('/home/nvidia/catkin_ws/src/hexapod_gait/scripts/datas/data.csv', 'w') as f:
      

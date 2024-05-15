@@ -7,7 +7,7 @@ import math
 import matplotlib.pyplot as plt
 
 from brain import HexBrain
-from hexapod_walker import HexWalker
+from traj_generator import TrajGenerator
 from data_saver import DataSaver
 
 
@@ -34,17 +34,18 @@ gait_dict = {'tri':{'theta':TRI, 'mu':0.5},
 if __name__ == '__main__':
     print(TETRA)
 
+    hz = 100
+
     rospy.init_node('gtexp2')
-    walker = HexWalker()
+    walker = TrajGenerator(omega_0=2*np.pi, Hz=hz)
     brain = HexBrain(walker)
     data_folder = '/home/jichen/paper11_ws/src/hexapod_control/scripts/motor_data'
-    ds = DataSaver(data_folder,2)
+    ds = DataSaver(data_folder,3)
 
-    hz = 200
     
-    r = rospy.Rate(hz)
 
-    dt = 1/hz
+
+    slp_time = 1/hz
 
     start_time = time.time()
 
@@ -77,7 +78,7 @@ if __name__ == '__main__':
         duration = time.time()-start_time
 
 
-        jc = brain.walker.leg_pose_from_phase(brain.walker.phase,dt)
+        jc = brain.walker.leg_pose_from_phase(brain.walker.phase)
         brain.walker.hexapod.exec_joint_command(jc)
 
         data = [duration, jc['j_c1_lf'],jc['j_c1_lm'],jc['j_c1_lr'],
@@ -105,12 +106,13 @@ if __name__ == '__main__':
         # duration_vec.append(duration)
         # mu_vec.append(brain.walker.mu)
 
-        brain.mu_writer.writerow([duration, brain.walker.mu])
-        brain.pos_writer.writerow([duration]+brain.model_position)
-        brain.vel_writer.writerow([duration]+brain.model_vel)
+        # brain.mu_writer.writerow([duration, brain.walker.mu])
+        # brain.pos_writer.writerow([duration]+brain.model_position)
+        # brain.vel_writer.writerow([duration]+brain.model_vel)
 
         # r.sleep()
-        dt = time.time()-loop_start_time
+        time.sleep(slp_time-(time.time()%slp_time))
+        # print('dt: ', time.time()-loop_start_time)
 
     plt.figure()
     plt.plot(duration_vec, mu_vec)
