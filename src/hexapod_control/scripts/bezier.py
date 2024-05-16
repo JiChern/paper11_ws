@@ -97,7 +97,7 @@ if __name__ == "__main__":
     x3 = 0.02
 
     y1 = 0
-    y2 = 0.02
+    y2 = 0.04
     y3 = 0
 
     bezier4.setPoint(x_vec = [x1,x2,x3], y_vec=[y1,y2,y3])
