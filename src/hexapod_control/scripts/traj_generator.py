@@ -149,10 +149,6 @@ class TrajGenerator(object):
         return self.joint_command
 
 
-
-
-
-
     def IKSolve(self, leg, target):
         self.leg_traj_x[leg['id']].append(target[0])
         self.leg_traj_y[leg['id']].append(target[1])
