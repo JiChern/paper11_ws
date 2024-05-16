@@ -55,11 +55,13 @@ if __name__ == '__main__':
     duration_vec = []
     mu_vec = []
 
-    start_gait = 'cater'
+    start_gait = 'tetra'
+    target_gait = 'tri'
 
     brain.walker.mu = gait_dict[start_gait]['mu']
 
-    print('Experimental Setting: ', 'start gait: ', start_gait, ' mu: ',brain.walker.mu, ' traj index: ', traj_index)
+    print('Experimental Setting: ', 'start gait: ', start_gait, ' mu: ',brain.walker.mu, ' target_gait: ',target_gait,
+             ' traj index: ', traj_index)
 
 
     input("Press enter to execute the experiment")
@@ -86,7 +88,7 @@ if __name__ == '__main__':
         if 10<duration<20.5:
             trans_start_time = 10
             progress = duration-trans_start_time
-            smooth_theta = brain.gait_transition('metach', 'tri', progress)
+            smooth_theta = brain.gait_transition(start_gait, target_gait, progress)
 
 
         print('duration: ',duration, ' mu: ', brain.walker.mu)
