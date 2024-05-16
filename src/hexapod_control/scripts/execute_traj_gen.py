@@ -25,7 +25,7 @@ WAVE = np.array([tpi/3,tpi/3, pi, tpi/3,tpi/3, pi/3])
 TETRA = np.array([tpi/3,tpi/3,0,tpi/3,tpi/3,2*tpi/3])
 
 gait_dict = {'tri':{'theta':TRI, 'mu':0.5},
-             'cater':{'theta':CATER, 'mu':0.2},   #
+             'cater':{'theta':CATER, 'mu':0.6},   #
              'metach':{'theta':METACH, 'mu':0.7},
              'wave':{'theta':WAVE, 'mu':0.83},
              'tetra':{'theta':TETRA, 'mu':0.66},
@@ -55,9 +55,11 @@ if __name__ == '__main__':
     duration_vec = []
     mu_vec = []
 
-    brain.walker.mu = gait_dict['metach']['mu']
+    start_gait = 'cater'
 
-    print('Experimental Setting: ', 'start gait: metach', ' mu: ',gait_dict['metach']['mu'], ' traj index: ', traj_index)
+    brain.walker.mu = gait_dict[start_gait]['mu']
+
+    print('Experimental Setting: ', 'start gait: ', start_gait, ' mu: ',brain.walker.mu, ' traj index: ', traj_index)
 
     input("Press enter to execute the experiment")
 
@@ -83,7 +85,7 @@ if __name__ == '__main__':
         if 10<duration<20.5:
             trans_start_time = 10
             progress = duration-trans_start_time
-            smooth_theta = brain.gait_transition('metach', 'tri', progress)
+            smooth_theta = brain.gait_transition('cater', 'tri', progress)
 
 
         print('duration: ',duration, ' mu: ', brain.walker.mu)

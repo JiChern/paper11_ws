@@ -25,7 +25,7 @@ WAVE = np.array([tpi/3,tpi/3, pi, tpi/3,tpi/3, pi/3])
 TETRA = np.array([tpi/3,tpi/3,0,tpi/3,tpi/3,2*tpi/3])
 
 gait_dict = {'tri':{'theta':TRI, 'mu':0.5},
-             'cater':{'theta':CATER, 'mu':0.2},   #
+             'cater':{'theta':CATER, 'mu':0.6},   #
              'metach':{'theta':METACH, 'mu':0.7},
              'wave':{'theta':WAVE, 'mu':0.83},
              'tetra':{'theta':TETRA, 'mu':0.66},

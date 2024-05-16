@@ -112,7 +112,7 @@ class TrajGenerator(object):
                     x3 = self.disp_r
 
                     y1 = 0
-                    y2 = 0.04
+                    y2 = 0.02
                     y3 = 0
 
                     x_vec = [x1,x2,x3]

@@ -391,7 +391,6 @@ if __name__ == '__main__':
 
     # pos = np.array([[l1_x, l2_x], [l1_y, l2_y]])
 
-    print(wave)
 
     phase_vec0 = []
     phase_vec1 = []
@@ -402,7 +401,7 @@ if __name__ == '__main__':
 
     beta = 0.995
 
-    sg.set_theta(metach)
+    sg.set_theta(cater)
 
     sg.start_oscillate_soft(1000)
 
