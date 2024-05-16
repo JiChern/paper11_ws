@@ -55,9 +55,12 @@ if __name__ == '__main__':
     duration_vec = []
     mu_vec = []
 
-    brain.walker.mu = gait_dict['metach']['mu']
+    start_gait = 'cater'
 
-    print('Experimental Setting: ', 'start gait: metach', ' mu: ',gait_dict['metach']['mu'], ' traj index: ', traj_index)
+    brain.walker.mu = gait_dict[start_gait]['mu']
+
+    print('Experimental Setting: ', 'start gait: ', start_gait, ' mu: ',brain.walker.mu, ' traj index: ', traj_index)
+
 
     input("Press enter to execute the experiment")
 
