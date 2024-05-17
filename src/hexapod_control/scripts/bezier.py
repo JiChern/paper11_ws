@@ -105,11 +105,13 @@ if __name__ == "__main__":
     t = 0
     x_list = []
     y_list = []
+    t_list = []
     for i in range(100):
     #     walker.step(0.005)
         t += 0.01
         x,y = bezier4.getPos(t)
         # print(bezier.x_pos)
+        t_list.append(t)
         x_list.append(x)
         y_list.append(y)
 
@@ -128,7 +130,7 @@ if __name__ == "__main__":
 
 
     plt.figure()
-    plt.plot(y_list)
+    plt.plot(t_list,y_list)
     # plt.plot(x_list,y_list)
     plt.show()
 

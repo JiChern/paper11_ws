@@ -23,13 +23,15 @@ TRI = pi*np.ones(6)
 METACH = tpi/6*np.ones(6)
 WAVE = np.array([tpi/3,tpi/3, pi, tpi/3,tpi/3, pi/3])
 TETRA = np.array([tpi/3,tpi/3,0,tpi/3,tpi/3,2*tpi/3])
+LURCH = np.array([pi,pi,0,pi,pi,0])
 
 gait_dict = {'tri':{'theta':TRI, 'mu':0.5},
              'cater':{'theta':CATER, 'mu':0.6},   #
              'metach':{'theta':METACH, 'mu':0.7},
              'wave':{'theta':WAVE, 'mu':0.83},
              'tetra':{'theta':TETRA, 'mu':0.66},
-             'hsmetach':{'theta':METACH, 'mu':0.4}}
+             'hsmetach':{'theta':METACH, 'mu':0.4},
+             'lurch':{'theta':LURCH, 'mu':0.5}}
 
 
 if __name__ == '__main__':
@@ -55,7 +57,7 @@ if __name__ == '__main__':
     duration_vec = []
     mu_vec = []
 
-    start_gait = 'wave'
+    start_gait = 'metach'
     target_gait = 'tri'
 
     brain.walker.mu = gait_dict[start_gait]['mu']
@@ -72,7 +74,7 @@ if __name__ == '__main__':
         duration = time.time()-start_time
 
 
-        jc = brain.walker.leg_pose_from_phase(brain.walker.phase)
+        jc = brain.walker.leg_pose_from_phase3(brain.walker.phase)
         brain.walker.hexapod.exec_joint_command(jc)
 
         data = [duration, jc['j_c1_lf'],jc['j_c1_lm'],jc['j_c1_lr'],
@@ -84,10 +86,15 @@ if __name__ == '__main__':
 
         ds.dump_data(data)
 
+        brain.walker.at_transition = False
+
         if 10<duration<20.5:
+            brain.walker.at_transition = True
             trans_start_time = 10
             progress = duration-trans_start_time
             smooth_theta = brain.gait_transition(start_gait, target_gait, progress)
+            
+
 
 
         print('duration: ',duration, ' mu: ', brain.walker.mu)
@@ -104,5 +111,8 @@ if __name__ == '__main__':
         # print('dt: ', time.time()-loop_start_time)
 
     plt.figure()
-    plt.plot(duration_vec, mu_vec)
+    plt.plot(brain.walker.leg_traj_y['1'])
+    plt.plot(brain.walker.leg_traj_z['1'])
+    plt.plot(brain.walker.cycle_time_traj['1'])
+    
     plt.show()

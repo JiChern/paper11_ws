@@ -340,7 +340,7 @@ class GaitGenerator(object):
 
 if __name__ == '__main__':
     rospy.init_node('test_sg')
-    sg = GaitGenerator(cell_num=6, alpha=10, beta=10, mu=1, omega=np.pi*2, gamma=1)
+    sg = GaitGenerator(cell_num=6, alpha=10, beta=10, mu=1, omega=2*np.pi, gamma=1)
     # sg = GaitGenerator(cell_num=6, alpha=10, beta=10, mu=1, omega=np.pi*4, gamma=1)
 
 
@@ -353,7 +353,11 @@ if __name__ == '__main__':
     metach = tpi/6*np.ones(6)
     wave = np.array([tpi/3,tpi/3, pi, tpi/3,tpi/3, pi/3])
     tetrapod = np.array([tpi/3,tpi/3,0,tpi/3,tpi/3,2*tpi/3])
+
+    lurch = np.array([pi,pi,0,pi,pi,0])
+
     test_theta = tpi*np.ones(6)
+
     
     
 
@@ -401,7 +405,7 @@ if __name__ == '__main__':
 
     beta = 0.995
 
-    sg.set_theta(wave)
+    sg.set_theta(metach)
 
     sg.start_oscillate_soft(1000)
 

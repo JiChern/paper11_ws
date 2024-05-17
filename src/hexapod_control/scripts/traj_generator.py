@@ -34,7 +34,7 @@ class TrajGenerator(object):
 
         self.omega_0  = omega_0
         self.Hz = Hz
-        self.mu = 0.7
+        self.mu = 0.5
         self.operator = 1
         self.disp_r = 0.02*self.operator
         self.v = self.omega_0*self.disp_r*2/(2*math.pi*self.mu)
@@ -44,7 +44,9 @@ class TrajGenerator(object):
 
         self.disp_l = [-0.02,-0.02,-0.02,-0.02,-0.02,-0.02]*self.operator
 
+        self.x = [0,0,0,0,0,0]
         self.y = [0,0,0,0,0,0]
+        self.z = [0,0,0,0,0,0]
 
         self.standheight = -self.interface.leg1['rest_pos'][2]
 
@@ -61,6 +63,8 @@ class TrajGenerator(object):
         self.leg_traj_x = {'1':[],'3':[],'5':[],'2':[],'4':[],'6':[]}
         self.leg_traj_y = {'1':[],'3':[],'5':[],'2':[],'4':[],'6':[]}
         self.leg_traj_z = {'1':[],'3':[],'5':[],'2':[],'4':[],'6':[]}
+        self.cycle_time_traj = {'1':[],'3':[],'5':[],'2':[],'4':[],'6':[]}
+
 
         self.duration_traj = {'1':[],'3':[],'5':[],'2':[],'4':[],'6':[]}
 
@@ -71,6 +75,17 @@ class TrajGenerator(object):
 
         self.time_last = [0,0,0,0,0,0]
 
+        self.group_warning = {'0':False, '1':False}
+        self.touchdown_lock = {'0':False, '1': False}
+        self.side_legs = {'0':[0,1,2], '1':[3,4,5]}
+
+        self.touchdown_end = [False,False,False,False,False,False]
+        self.at_transition = False
+
+        self.td_start_time = [1,1,1,1,1,1]
+
+        self.touchdown_counter = [0,0,0,0,0,0]
+        self.command = [0,0,0,0,0,0]
 
     def calculate_stance_v(self):
         self.v = -self.omega_0*self.disp_r*2/(2*math.pi*self.mu)
@@ -100,12 +115,12 @@ class TrajGenerator(object):
                 dy = v*dt
 
                 self.y[index] = self.y[index] + dy
-
-                z_pos = 0
+                self.z[index] = 0
                 self.last_state[index] = 0
                 self.time_last[index] = time.time()
 
-            else:
+
+            else: # Swing Phase
                 if self.last_state[index] == 0:
                     x1 = self.y[index]
                     x2 = (self.y[index] + self.disp_r)/2
@@ -123,13 +138,18 @@ class TrajGenerator(object):
                         print('bezier x: ', self.beziers[str(index)].x_pos, ' x_vec: ',x_vec)
                         print('bezier y: ', self.beziers[str(index)].y_pos, ' y_vec: ',y_vec)
 
-                self.y[index], z_pos = self.beziers[str(index)].getPos((cycle_time-self.mu)/(1-self.mu))
+                if not self.warning(index):
+                    self.y[index], self.z[index] = self.beziers[str(index)].getPos((cycle_time-self.mu)/(1-self.mu))
+                else:
+                    self.y[index], self.z[index] = self.beziers[str(index)].getPos((cycle_time-self.mu)/(1-self.mu))
+                
+
 
                 self.last_state[index] = 1
 
             x_tar = leg['rest_pos'][0]
             y_tar = leg['rest_pos'][1] + self.y[index] 
-            z_tar = -self.standheight + z_pos     
+            z_tar = -self.standheight + self.z[index]     
 
             converged, jnt_angle = self.IKSolve(leg, np.array([x_tar,y_tar,z_tar]))
 
@@ -147,12 +167,234 @@ class TrajGenerator(object):
             self.leg_traj_z[leg['id']].append(z_tar)
 
         return self.joint_command
+    
 
+
+    def leg_pose_from_phase3(self,phase):
+        if self.at_transition:
+
+            for index,leg in enumerate(self.interface.legs):
+
+                cycle_time = phase[index]
+
+                if index in [0,1,2]:
+                    side = '0'  # right-hand side 
+                else:
+                    side = '1'  # left-hand side
+
+                side_legs = self.side_legs[side]
+
+                if cycle_time >= self.mu and self.command[index]==0: # Swing Legs
+                    # if index == 0:
+                    #     print('in pure swing')
+                    if self.last_state[index] == 2:
+                        x1 = self.y[index]
+                        x2 = (self.y[index] + self.disp_r)/2
+                        x3 = self.disp_r
+
+                        y1 = 0
+                        y2 = 0.02
+                        y3 = 0
+
+                        x_vec = [x1,x2,x3]
+                        y_vec = [y1,y2,y3]
+                        
+                        self.beziers[str(index)].setPoint(x_vec, y_vec)
+                        if index == 0:
+                            print('bezier x: ', self.beziers[str(index)].x_pos, ' x_vec: ',x_vec)
+                            print('bezier y: ', self.beziers[str(index)].y_pos, ' y_vec: ',y_vec)
+
+                    
+                    if not self.group_warning[side]:
+                        self.y[index], self.z[index] = self.beziers[str(index)].getPos((cycle_time-self.mu)/(1-self.mu))
+                        self.last_state[index] = 0
+                        self.command[index] = 0  
+                    else:
+                        if self.touchdown_lock[side] == False:
+                            if cycle_time>0.85 and cycle_time == max(phase[side_legs[0]],phase[side_legs[1]],phase[side_legs[2]]): # The leg that closest to the ground
+                                self.touchdown_lock[side] = True
+                                self.td_start_time[index] = cycle_time
+                                self.touchdown_counter[index] = 1
+                                self.last_state[index] = 0   
+                                self.command[index] = 1  # # this state goes to touchdown block
+                            else:
+                                self.last_state[index] = 0   
+                                self.command[index] = 0  # # this state goes to swing again
+                        else:
+                            self.last_state[index] = 0   
+                            self.command[index] = 0  # # this state goes to swing again
+
+                        self.y[index], self.z[index] = self.beziers[str(index)].getPos((cycle_time-self.mu)/(1-self.mu))  
+                                        
+
+                elif cycle_time >= self.mu and self.command[index]==1: #Only for touchdown legss
+                    # print('touch down_leg: ', index)
+                    start_time = self.td_start_time[index]
+                    target_time = 1
+                    progress_2 = start_time + 0.03*self.touchdown_counter[index]
+
+                    # if index == 0:
+                    #     print('progress2: ', progress_2, ' progress: ', cycle_time)
+
+                    self.y[index], self.z[index] = self.beziers[str(index)].getPos((progress_2-self.mu)/(1-self.mu))
+
+                    if progress_2 >= target_time:
+                        self.y[index], self.z[index] = self.beziers[str(index)].getPos((target_time-self.mu)/(1-self.mu))
+                        self.touchdown_counter[index] = 0
+                        self.last_state[index] = 1
+                        self.command[index] = 2
+                        self.group_warning[side] = False
+                        self.touchdown_lock[side] = False
+
+                    else:
+                        self.last_state[index] = 1
+                        self.command[index] = 1
+
+                    self.touchdown_counter[index] += 1
+
+
+                elif cycle_time < self.mu or self.command[index]==2: # Stance Phase or toucdown ends
+                    # if index == 0:
+                    #     print('in pure stance')
+                    
+                    if self.last_state[index] == 0 or self.last_state[index] == 1:
+                        self.time_last[index] = time.time()
+                        self.y[index] = self.disp_r
+
+                    v = self.calculate_stance_v()
+
+                    dt = 1/self.Hz
+                    dy = v*dt
+
+
+                    if cycle_time<self.mu and self.mu-cycle_time<0.1:
+                        self.group_warning[side] = True
+
+                    self.y[index] = self.y[index] + dy
+                    self.z[index] = 0
+
+                    # if index == 0:
+                    #     print('cycle time at stance: ', cycle_time)
+
+                    if cycle_time > self.mu and abs(cycle_time-self.mu)<0.2: # Stance end, next state go to swing
+                        self.last_state[index] = 2
+                        self.command[index] = 0
+                    else:
+                        self.last_state[index] = 2
+                        self.command[index] = 2
+
+
+                    # if cycle_time>self.mu:
+                    #     print('big cycle time: ', cycle_time)
+                    #     self.last_state[index] = 3
+
+                    self.time_last[index] = time.time()
+
+
+                x_tar = leg['rest_pos'][0]
+                y_tar = leg['rest_pos'][1] + self.y[index] 
+                z_tar = -self.standheight + self.z[index]     
+
+                converged, jnt_angle = self.IKSolve(leg, np.array([x_tar,y_tar,z_tar]))
+
+                if converged:
+                    # print('converged!!')
+                    self.joint_command[leg['joint_names'][0]] = jnt_angle[0] 
+                    self.joint_command[leg['joint_names'][1]] = jnt_angle[1]
+                    self.joint_command[leg['joint_names'][2]] = jnt_angle[2]
+
+            # Record Data
+
+                self.leg_traj_x[leg['id']].append(x_tar)
+                self.leg_traj_y[leg['id']].append(y_tar)
+                self.leg_traj_z[leg['id']].append(z_tar)
+                self.cycle_time_traj[leg['id']].append(cycle_time)
+                
+
+        else:
+            # print('Not at Trans')
+            for index,leg in enumerate(self.interface.legs):
+
+                cycle_time = phase[index]
+
+                if cycle_time < self.mu: # Stance Phase
+                    
+                    if self.last_state[index] == 1:
+                        self.time_last[index] = time.time()
+                        self.y[index] = self.disp_r
+
+                    v = self.calculate_stance_v()
+
+                    dt = time.time()-self.time_last[index]
+
+                    if index == 0:
+                        self.t_traj['1'].append(dt)
+
+                    dt = 1/self.Hz
+                    dy = v*dt
+
+                    self.y[index] = self.y[index] + dy
+                    self.z[index] = 0
+                    self.last_state[index] = 0
+                    self.time_last[index] = time.time()
+
+
+                else: # Swing Phase
+                    if self.last_state[index] == 0:
+                        x1 = self.y[index]
+                        x2 = (self.y[index] + self.disp_r)/2
+                        x3 = self.disp_r
+
+                        y1 = 0
+                        y2 = 0.02
+                        y3 = 0
+
+                        x_vec = [x1,x2,x3]
+                        y_vec = [y1,y2,y3]
+                        
+                        self.beziers[str(index)].setPoint(x_vec, y_vec)
+                        if index == 0:
+                            print('bezier x: ', self.beziers[str(index)].x_pos, ' x_vec: ',x_vec)
+                            print('bezier y: ', self.beziers[str(index)].y_pos, ' y_vec: ',y_vec)
+
+
+                    self.y[index], self.z[index] = self.beziers[str(index)].getPos((cycle_time-self.mu)/(1-self.mu))
+                    
+
+
+                    self.last_state[index] = 1
+
+                x_tar = leg['rest_pos'][0]
+                y_tar = leg['rest_pos'][1] + self.y[index] 
+                z_tar = -self.standheight + self.z[index]     
+
+                converged, jnt_angle = self.IKSolve(leg, np.array([x_tar,y_tar,z_tar]))
+
+                if converged:
+                    # print('converged!!')
+                    self.joint_command[leg['joint_names'][0]] = jnt_angle[0]
+                    self.joint_command[leg['joint_names'][1]] = jnt_angle[1]
+                    self.joint_command[leg['joint_names'][2]] = jnt_angle[2]
+
+                self.leg_traj_x[leg['id']].append(x_tar)
+                self.leg_traj_y[leg['id']].append(y_tar)
+                self.leg_traj_z[leg['id']].append(z_tar)
+                self.cycle_time_traj[leg['id']].append(cycle_time)
+
+        return self.joint_command
+
+
+    def warning(self,index):
+        group1 = [0,1,2]
+        if index in group1:
+            return self.group_warning['0']
+        else:
+            return self.group_warning['1']
 
     def IKSolve(self, leg, target):
-        self.leg_traj_x[leg['id']].append(target[0])
-        self.leg_traj_y[leg['id']].append(target[1])
-        self.leg_traj_z[leg['id']].append(target[2])
+        # self.leg_traj_x[leg['id']].append(target[0])
+        # self.leg_traj_y[leg['id']].append(target[1])
+        # self.leg_traj_z[leg['id']].append(target[2])
 
         converged = False
         diff = 100

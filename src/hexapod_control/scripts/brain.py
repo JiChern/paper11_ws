@@ -30,14 +30,15 @@ TRI = pi*np.ones(6)
 METACH = tpi/6*np.ones(6)
 WAVE = np.array([tpi/3,tpi/3, pi, tpi/3,tpi/3, pi/3])
 TETRA = np.array([tpi/3,tpi/3,0,tpi/3,tpi/3,2*tpi/3])
-
+LURCH = np.array([pi,pi,0,pi,pi,0])
 
 gait_dict = {'tri':{'theta':TRI, 'mu':0.5},
              'cater':{'theta':CATER, 'mu':0.6},    #0.6
              'metach':{'theta':METACH, 'mu':0.7},
              'wave':{'theta':WAVE, 'mu':0.83},
              'tetra':{'theta':TETRA, 'mu':0.66},
-             'hsmetach':{'theta':METACH, 'mu':0.4}}
+             'hsmetach':{'theta':METACH, 'mu':0.4},
+             'lurch':{'theta':LURCH, 'mu':0.5}}
 
 class HexBrain(object):
     def __init__(self, walker):

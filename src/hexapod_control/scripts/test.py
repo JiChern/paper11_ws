@@ -12,16 +12,9 @@ if __name__ == '__main__':
     t = 0
     x_list = []
     y_list = []
-    for i in range(100):
-    #     walker.step(0.005)
-        t += 0.01
-        x,y = bezier.getPos(t)
-        # print(bezier.x_pos)
-        x_list.append(x)
-        y_list.append(y)
+    x = 10
 
-    print('y_list: ', y_list)
-
-    plt.figure()
-    plt.plot(x_list)
-    plt.show()
+    if x>1:
+        print('first condition met')
+    elif x>2:
+        print('second condition met')
