@@ -111,8 +111,8 @@ if __name__ == '__main__':
         # print('dt: ', time.time()-loop_start_time)
 
     plt.figure()
-    plt.plot(brain.walker.leg_traj_y['1'])
-    plt.plot(brain.walker.leg_traj_z['1'])
-    plt.plot(brain.walker.cycle_time_traj['1'])
+    plt.plot(brain.walker.leg_traj_y['3'])
+    plt.plot(brain.walker.leg_traj_z['3'])
+    plt.plot(np.array(brain.walker.cycle_time_traj['3'])/10)
     
     plt.show()
