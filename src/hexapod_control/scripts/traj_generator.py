@@ -241,7 +241,7 @@ class TrajGenerator(object):
                     # print('touch down_leg: ', index)
                     start_time = self.td_start_time[index]
                     target_time = 1
-                    progress_2 = start_time + 0.06*self.touchdown_counter[index]
+                    progress_2 = start_time + 0.03*self.touchdown_counter[index]
 
                     # if index == 0:
                     #     print('progress2: ', progress_2, ' progress: ', cycle_time)
@@ -277,7 +277,12 @@ class TrajGenerator(object):
                     dy = v*dt
 
 
-                    if cycle_time<self.mu and self.mu-cycle_time<0.15:
+                    # if cycle_time<self.mu and self.mu-cycle_time<0.15:
+                    #     self.group_warning[side] = True
+                    another_legs_on_side = self.side_legs[side].copy()
+                    another_legs_on_side.remove(index)
+                    print('ALOS: ', another_legs_on_side)
+                    if phase[index] < self.mu and phase[another_legs_on_side[0]]>=self.mu and phase[another_legs_on_side[1]]>=self.mu:
                         self.group_warning[side] = True
 
                     self.y[index] = self.y[index] + dy
@@ -286,7 +291,7 @@ class TrajGenerator(object):
                     # if index == 0:
                     #     print('cycle time at stance: ', cycle_time)
 
-                    if cycle_time > self.mu and abs(cycle_time-self.mu)<0.06: # Stance end, next state go to swing
+                    if cycle_time > self.mu and abs(cycle_time-self.mu)<0.03: # Stance end, next state go to swing
                         self.last_state[index] = 2
                         self.command[index] = 0
                     else:
