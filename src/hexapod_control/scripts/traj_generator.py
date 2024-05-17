@@ -210,30 +210,29 @@ class TrajGenerator(object):
                         self.last_state[index] = 0
                         self.command[index] = 0  
                     else:
-                        if self.touchdown_lock[side] == False:
-                            if cycle_time == max(phase[side_legs[0]],phase[side_legs[1]],phase[side_legs[2]]) and cycle_time>self.mu + (1-self.mu): # The leg that closest to the ground
-                                self.touchdown_lock[side] = True
-                                self.td_start_time[index] = cycle_time
-                                self.touchdown_counter[index] = 1
+                        # if self.touchdown_lock[side] == False:
+                        #     if cycle_time == max(phase[side_legs[0]],phase[side_legs[1]],phase[side_legs[2]]) and cycle_time>self.mu + (1-self.mu): # The leg that closest to the ground
+                        #         self.touchdown_lock[side] = True
+                        #         self.td_start_time[index] = cycle_time
+                        #         self.touchdown_counter[index] = 1
 
-                                self.last_state[index] = 0   
-                                self.command[index] = 1  # # this state goes to touchdown block
-                            else:
-                                self.last_state[index] = 0   
-                                self.command[index] = 0  # # this state goes to swing again
-                        else:
-                            self.last_state[index] = 0   
-                            self.command[index] = 0  # # this state goes to swing again
-
-                        # if cycle_time>self.mu + (1-self.mu):
-                        #     self.td_start_time[index] = cycle_time
-                        #     self.touchdown_counter[index] = 1
-                        #     self.last_state[index] = 0   
-                        #     self.command[index] = 1  # # this state goes to touchdown block
+                        #         self.last_state[index] = 0   
+                        #         self.command[index] = 1  # # this state goes to touchdown block
+                        #     else:
+                        #         self.last_state[index] = 0   
+                        #         self.command[index] = 0  # # this state goes to swing again
                         # else:
                         #     self.last_state[index] = 0   
                         #     self.command[index] = 0  # # this state goes to swing again
 
+                        if cycle_time>self.mu + (1-self.mu):
+                            self.td_start_time[index] = cycle_time
+                            self.touchdown_counter[index] = 1
+                            self.last_state[index] = 0   
+                            self.command[index] = 1  # # this state goes to touchdown block
+                        else:
+                            self.last_state[index] = 0   
+                            self.command[index] = 0  # # this state goes to swing again
 
                         self.y[index], self.z[index] = self.beziers[str(index)].getPos((cycle_time-self.mu)/(1-self.mu))  
                                         
