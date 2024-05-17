@@ -241,7 +241,7 @@ class TrajGenerator(object):
                     # print('touch down_leg: ', index)
                     start_time = self.td_start_time[index]
                     target_time = 1
-                    progress_2 = start_time + 0.03*self.touchdown_counter[index]
+                    progress_2 = start_time + 0.06*self.touchdown_counter[index]
 
                     # if index == 0:
                     #     print('progress2: ', progress_2, ' progress: ', cycle_time)
@@ -286,7 +286,7 @@ class TrajGenerator(object):
                     # if index == 0:
                     #     print('cycle time at stance: ', cycle_time)
 
-                    if cycle_time > self.mu and abs(cycle_time-self.mu)<0.03: # Stance end, next state go to swing
+                    if cycle_time > self.mu and abs(cycle_time-self.mu)<0.06: # Stance end, next state go to swing
                         self.last_state[index] = 2
                         self.command[index] = 0
                     else:
