@@ -57,7 +57,7 @@ if __name__ == '__main__':
     duration_vec = []
     mu_vec = []
 
-    start_gait = 'cater'
+    start_gait = 'tetra'
     target_gait = 'tri'
 
     brain.walker.mu = gait_dict[start_gait]['mu']
