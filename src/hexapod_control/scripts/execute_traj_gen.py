@@ -102,7 +102,7 @@ if __name__ == '__main__':
         # duration_vec.append(duration)
         # mu_vec.append(brain.walker.mu)
 
-        # brain.mu_writer.writerow([duration, brain.walker.mu])
+        brain.mu_writer.writerow([duration, brain.walker.mu])
         # brain.pos_writer.writerow([duration]+brain.model_position)
         # brain.vel_writer.writerow([duration]+brain.model_vel)
 
