@@ -39,7 +39,7 @@ if __name__ == '__main__':
 
     hz = 100
 
-    traj_index = 3
+    traj_index = 4
 
     rospy.init_node('gtexp2')
     walker = TrajGenerator(omega_0=2*np.pi, Hz=hz)

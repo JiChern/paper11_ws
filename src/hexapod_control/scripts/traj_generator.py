@@ -311,11 +311,14 @@ class TrajGenerator(object):
 
                 cycle_time = phase[index]
 
-                if cycle_time < self.mu: # Stance Phase
+                if cycle_time < self.mu or self.command[index]==2: # Stance Phase
                     
                     if self.last_state[index] == 0 or self.last_state[index] == 1:
                         self.time_last[index] = time.time()
                         self.y[index] = self.disp_r
+
+                    if cycle_time > self.mu and abs(cycle_time-self.mu)<0.03:
+                        self.command[index]=0
 
                     v = self.calculate_stance_v()
 
