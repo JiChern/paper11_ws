@@ -210,20 +210,6 @@ class TrajGenerator(object):
                         self.last_state[index] = 0
                         self.command[index] = 0  
                     else:
-                        # if self.touchdown_lock[side] == False:
-                        #     if cycle_time == max(phase[side_legs[0]],phase[side_legs[1]],phase[side_legs[2]]) and cycle_time>self.mu + (1-self.mu): # The leg that closest to the ground
-                        #         self.touchdown_lock[side] = True
-                        #         self.td_start_time[index] = cycle_time
-                        #         self.touchdown_counter[index] = 1
-
-                        #         self.last_state[index] = 0   
-                        #         self.command[index] = 1  # # this state goes to touchdown block
-                        #     else:
-                        #         self.last_state[index] = 0   
-                        #         self.command[index] = 0  # # this state goes to swing again
-                        # else:
-                        #     self.last_state[index] = 0   
-                        #     self.command[index] = 0  # # this state goes to swing again
 
                         if cycle_time>self.mu + (1-self.mu)/2:
                             self.td_start_time[index] = cycle_time
@@ -281,15 +267,12 @@ class TrajGenerator(object):
                     #     self.group_warning[side] = True
                     another_legs_on_side = self.side_legs[side].copy()
                     another_legs_on_side.remove(index)
-                    print('ALOS: ', another_legs_on_side)
                     if phase[index] < self.mu and phase[another_legs_on_side[0]]>=self.mu and phase[another_legs_on_side[1]]>=self.mu:
                         self.group_warning[side] = True
 
                     self.y[index] = self.y[index] + dy
                     self.z[index] = 0
 
-                    # if index == 0:
-                    #     print('cycle time at stance: ', cycle_time)
 
                     if cycle_time > self.mu and abs(cycle_time-self.mu)<0.03: # Stance end, next state go to swing
                         self.last_state[index] = 2
@@ -298,10 +281,6 @@ class TrajGenerator(object):
                         self.last_state[index] = 2
                         self.command[index] = 2
 
-
-                    # if cycle_time>self.mu:
-                    #     print('big cycle time: ', cycle_time)
-                    #     self.last_state[index] = 3
 
                     self.time_last[index] = time.time()
 
