@@ -39,14 +39,13 @@ if __name__ == '__main__':
 
     hz = 100
 
-    traj_index = 5
+    traj_index = 4
 
     rospy.init_node('gtexp2')
     walker = TrajGenerator(omega_0=2*np.pi, Hz=hz)
     brain = HexBrain(walker)
     data_folder = '/home/jichen/paper11_ws/src/hexapod_control/scripts/motor_data'
     ds = DataSaver(data_folder,traj_index)
-
     
     slp_time = 1/hz
     mu = 0.5
@@ -57,7 +56,7 @@ if __name__ == '__main__':
     duration_vec = []
     mu_vec = []
 
-    start_gait = 'tetra'
+    start_gait = 'wave'
     target_gait = 'tri'
 
     brain.walker.mu = gait_dict[start_gait]['mu']
