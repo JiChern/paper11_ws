@@ -39,7 +39,7 @@ if __name__ == '__main__':
 
     hz = 100
 
-    traj_index = 4
+    traj_index = 2
 
     rospy.init_node('gtexp2')
     walker = TrajGenerator(omega_0=2*np.pi, Hz=hz)
@@ -56,7 +56,7 @@ if __name__ == '__main__':
     duration_vec = []
     mu_vec = []
 
-    start_gait = 'wave'
+    start_gait = 'lurch'
     target_gait = 'tri'
 
     brain.walker.mu = gait_dict[start_gait]['mu']
