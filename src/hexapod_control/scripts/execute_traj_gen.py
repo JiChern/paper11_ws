@@ -31,7 +31,7 @@ gait_dict = {'tri':{'theta':TRI, 'mu':0.5},
              'wave':{'theta':WAVE, 'mu':0.83},
              'tetra':{'theta':TETRA, 'mu':0.66},
              'hsmetach':{'theta':METACH, 'mu':0.4},
-             'lurch':{'theta':LURCH, 'mu':0.5}}
+             'lurch':{'theta':LURCH, 'mu':0.55}}
 
 
 if __name__ == '__main__':
