@@ -405,7 +405,7 @@ if __name__ == '__main__':
 
     beta = 0.995
 
-    sg.set_theta(wave)
+    sg.set_theta(cater)
 
     sg.start_oscillate_soft(1000)
 
